@@ -1,0 +1,60 @@
+name: monorepo-template
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: monorepo-template-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: monorepo_template
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d monorepo_template"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+    image: monorepo-template-api
+    container_name: monorepo-template-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: "${NODE_ENV:-production}"
+      API_PORT: "8000"
+      BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET in .env}"
+      BETTER_AUTH_URL: "${BETTER_AUTH_URL:-http://localhost:8000}"
+      CLIENT_ORIGINS: "${CLIENT_ORIGINS:-http://localhost:3000,http://localhost:4000}"
+      DATABASE_URL: "${DOCKER_DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/monorepo_template?schema=public}"
+      ENABLE_TELEMETRY: "${ENABLE_TELEMETRY:-false}"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
+      TELEMETRY_API_KEY: "${TELEMETRY_API_KEY:-}"
+      TELEMETRY_API_KEY_HEADER: "${TELEMETRY_API_KEY_HEADER:-authorization}"
+      TELEMETRY_EXPORTER: "${TELEMETRY_EXPORTER:-console}"
+      TELEMETRY_EXPORTER_OTLP_ENDPOINT: "${TELEMETRY_EXPORTER_OTLP_ENDPOINT:-}"
+      TELEMETRY_SERVICE_NAMESPACE: "${TELEMETRY_SERVICE_NAMESPACE:-monorepo-template}"
+    ports:
+      - "${API_HOST_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:8000/health').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    command: sh -c "pnpm db:deploy && pnpm --filter @repo/api start"
+
+volumes:
+  postgres_data:
