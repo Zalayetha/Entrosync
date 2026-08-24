@@ -19,7 +19,7 @@ const resources = {
         },
       },
       nav: {
-        brand: "Platform",
+        brand: "Entrosync",
         dashboard: "Dashboard",
         login: "Login",
         profile: "Edit profile",
@@ -29,7 +29,13 @@ const resources = {
       },
       auth: {
         login: {
-          title: "Platform login",
+          title: "Welcome back",
+          description: "Login to your account",
+          heroTitle: "Freelancers and clients stay aligned",
+          heroDescription: "A professional workspace to help freelancers stay aligned with clients.",
+          googleSubmit: "Sign in with Google",
+          divider: "OR",
+          logoAlt: "EntroSync Logo",
           email: "Email",
           password: "Password",
           submit: "Login",
@@ -39,8 +45,14 @@ const resources = {
         },
         register: {
           title: "Create user account",
+          description: "Sign up to start using EntroSync.",
+          heroTitle: "A work system for modern freelancers",
+          heroDescription:
+            "Manage client work, track progress, and handle invoices in one concise platform.",
+          logoAlt: "EntroSync Logo",
           name: "Name",
           email: "Email",
+          confirmPassword: "Confirm password",
           password: "Password",
           submit: "Register",
           pending: "Creating...",
@@ -118,7 +130,7 @@ const resources = {
         },
       },
       nav: {
-        brand: "Platform",
+        brand: "Entrosync",
         dashboard: "Dasbor",
         login: "Masuk",
         profile: "Edit profil",
@@ -128,7 +140,14 @@ const resources = {
       },
       auth: {
         login: {
-          title: "Masuk Platform",
+          title: "Selamat Datang Kembali",
+          description: "Masuk ke akun anda",
+          heroTitle: "Freelancer dan klien tetap selaras",
+          heroDescription:
+            "Workspace profesional untuk membantu freelancer tetap selaras dengan klien.",
+          googleSubmit: "Masuk dengan Google",
+          divider: "ATAU",
+          logoAlt: "EntroSync Logo",
           email: "Email",
           password: "Kata sandi",
           submit: "Masuk",
@@ -138,8 +157,14 @@ const resources = {
         },
         register: {
           title: "Buat akun pengguna",
+          description: "Sign up to start using EntroSync.",
+          heroTitle: "Sistem kerja untuk freelancer modern",
+          heroDescription:
+            "Kelola pekerjaan klien, pantau progres, dan urus invoice dalam satu platform yang ringkas.",
+          logoAlt: "EntroSync Logo",
           name: "Nama",
           email: "Email",
+          confirmPassword: "Konfirmasi kata sandi",
           password: "Kata sandi",
           submit: "Daftar",
           pending: "Membuat...",

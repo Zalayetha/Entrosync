@@ -3,7 +3,7 @@ import { i18n } from "./i18n";
 
 describe("platform i18n", () => {
   it("loads base translations", () => {
-    expect(i18n.t("nav.brand", { lng: "en" })).toBe("Platform");
+    expect(i18n.t("nav.brand", { lng: "en" })).toBe("Entrosync");
     expect(i18n.t("nav.dashboard", { lng: "id" })).toBe("Dasbor");
   });
 });
