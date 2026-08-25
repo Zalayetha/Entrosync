@@ -1,6 +1,12 @@
 import { useTranslation } from "@repo/ui/i18n";
 import { Button } from "@repo/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
 import { toast } from "@repo/ui/components/sonner";
@@ -22,9 +28,14 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const registerMutation = useRegisterMutation();
+  const passwordsDoNotMatch = confirmPassword.length > 0 && confirmPassword !== password;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (passwordsDoNotMatch) {
+      return;
+    }
+
     registerMutation.mutate(
       { name, email, password },
       {
@@ -41,10 +52,7 @@ function RegisterPage() {
       {/*Header*/}
       <header className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
         <div className="flex gap-2 items-center">
-          <img
-            alt={t("auth.register.logoAlt")}
-            src="/images/favicon.svg"
-            className="h-8 w-auto" />
+          <img alt={t("auth.register.logoAlt")} src="/images/favicon.svg" className="h-8 w-auto" />
           <Link to="/" className="font-semibold">
             {t("nav.brand")}
           </Link>
@@ -56,18 +64,17 @@ function RegisterPage() {
         {/*Left Side*/}
         <div className="flex-1 flex flex-col justify-between gap-12 p-8 lg:p-16">
           <div className="flex flex-col justify-center h-full items-start text-left">
-
-           	<div className="max-w-md">
-      				<h1 className="text-4xl font-bold mb-4">{t("auth.register.heroTitle")}</h1>
-      				<p className="text-gray-400 text-lg leading-relaxed">{t("auth.register.heroDescription")}</p>
+            <div className="max-w-md">
+              <h1 className="text-4xl font-bold mb-4">{t("auth.register.heroTitle")}</h1>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                {t("auth.register.heroDescription")}
+              </p>
             </div>
             {/* Copyright */}
-       			<div
-        				className={`flex items-center gap-1 text-sm text-gray-500 flex-row-reverse`}
-       			>
-        				<Copyright size={12} />
+            <div className={`flex items-center gap-1 text-sm text-gray-500 flex-row-reverse`}>
+              <Copyright size={12} />
               <span>2026 {t("nav.brand")}</span>
-       			</div>
+            </div>
           </div>
         </div>
         {/*End Left Side*/}
@@ -77,7 +84,9 @@ function RegisterPage() {
           <Card className="w-full max-w-md bg-background border-none shadow-none">
             <CardHeader>
               <CardTitle className="text-2xl text-center">{t("auth.register.title")}</CardTitle>
-              <CardDescription className="text-center">{t("auth.register.description")}</CardDescription>
+              <CardDescription className="text-center">
+                {t("auth.register.description")}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form className="grid gap-4" onSubmit={handleSubmit}>
@@ -116,11 +125,16 @@ function RegisterPage() {
                     id="confirm-password"
                     type="password"
                     autoComplete="confirm-password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
                   />
+                  {passwordsDoNotMatch ? (
+                    <p className="text-xs text-destructive">
+                      {t("auth.register.passwordMismatch")}
+                    </p>
+                  ) : null}
                 </div>
-                <Button type="submit" disabled={registerMutation.isPending}>
+                <Button type="submit" disabled={registerMutation.isPending || passwordsDoNotMatch}>
                   {registerMutation.isPending
                     ? t("auth.register.pending")
                     : t("auth.register.submit")}

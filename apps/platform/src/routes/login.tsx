@@ -1,6 +1,12 @@
 import { useTranslation } from "@repo/ui/i18n";
 import { Button } from "@repo/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
 import { toast } from "@repo/ui/components/sonner";
@@ -36,14 +42,10 @@ function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-
       {/*Header*/}
       <header className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
         <div className="flex gap-2 items-center">
-          <img
-            alt={t("auth.login.logoAlt")}
-            src="/images/favicon.svg"
-            className="h-8 w-auto" />
+          <img alt={t("auth.login.logoAlt")} src="/images/favicon.svg" className="h-8 w-auto" />
           <Link to="/" className="font-semibold">
             {t("nav.brand")}
           </Link>
@@ -57,18 +59,17 @@ function LoginPage() {
         {/*Left Side*/}
         <div className="flex-1 flex flex-col justify-between gap-12 p-8 lg:p-16">
           <div className="flex flex-col justify-center h-full items-start text-left">
-
-           	<div className="max-w-md">
-      				<h1 className="text-4xl font-bold mb-4">{t("auth.login.heroTitle")}</h1>
-      				<p className="text-gray-400 text-lg leading-relaxed">{t("auth.login.heroDescription")}</p>
+            <div className="max-w-md">
+              <h1 className="text-4xl font-bold mb-4">{t("auth.login.heroTitle")}</h1>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                {t("auth.login.heroDescription")}
+              </p>
             </div>
             {/* Copyright */}
-       			<div
-        				className={`flex items-center gap-1 text-sm text-gray-500 flex-row-reverse`}
-       			>
-        				<Copyright size={12} />
+            <div className={`flex items-center gap-1 text-sm text-gray-500 flex-row-reverse`}>
+              <Copyright size={12} />
               <span>2026 {t("nav.brand")}</span>
-       			</div>
+            </div>
           </div>
         </div>
         {/*End Left Side*/}
@@ -78,24 +79,26 @@ function LoginPage() {
           <Card className="w-full max-w-md bg-background border-none shadow-none">
             <CardHeader>
               <CardTitle className="text-2xl text-center">{t("auth.login.title")}</CardTitle>
-              <CardDescription className="text-center">{t("auth.login.description")}</CardDescription>
+              <CardDescription className="text-center">
+                {t("auth.login.description")}
+              </CardDescription>
               <Button
-        				onClick={() => console.log("Login with google")}
-        				type="button"
-        				className="w-full rounded-full my-2"
+                onClick={() => console.log("Login with google")}
+                type="button"
+                className="w-full rounded-full my-2"
               >
                 {t("auth.login.googleSubmit")}
               </Button>
             </CardHeader>
 
-           	{/* Divider */}
-           	<div className="relative flex items-center justify-center">
-             	<div className="absolute inset-0 flex items-center">
-              		<div className="w-full border-t border-neutral-800" />
-             	</div>
-             	<span className="relative bg-black px-3 text-xs text-gray-500">
-            		{t("auth.login.divider")}
-             	</span>
+            {/* Divider */}
+            <div className="relative flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-neutral-800" />
+              </div>
+              <span className="relative bg-black px-3 text-xs text-gray-500">
+                {t("auth.login.divider")}
+              </span>
             </div>
 
             <CardContent>

@@ -32,7 +32,8 @@ const resources = {
           title: "Welcome back",
           description: "Login to your account",
           heroTitle: "Freelancers and clients stay aligned",
-          heroDescription: "A professional workspace to help freelancers stay aligned with clients.",
+          heroDescription:
+            "A professional workspace to help freelancers stay aligned with clients.",
           googleSubmit: "Sign in with Google",
           divider: "OR",
           logoAlt: "EntroSync Logo",
@@ -58,6 +59,7 @@ const resources = {
           pending: "Creating...",
           loginLink: "Already have an account?",
           fallbackError: "Registration failed.",
+          passwordMismatch: "Passwords do not match.",
         },
       },
       dashboard: {
@@ -170,6 +172,7 @@ const resources = {
           pending: "Membuat...",
           loginLink: "Sudah punya akun?",
           fallbackError: "Pendaftaran gagal.",
+          passwordMismatch: "Kata sandi tidak cocok.",
         },
       },
       dashboard: {
