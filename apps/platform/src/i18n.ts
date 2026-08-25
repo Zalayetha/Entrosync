@@ -159,7 +159,7 @@ const resources = {
         },
         register: {
           title: "Buat akun pengguna",
-          description: "Sign up to start using EntroSync.",
+          description: "Daftar untuk mulai menggunakan EntroSync.",
           heroTitle: "Sistem kerja untuk freelancer modern",
           heroDescription:
             "Kelola pekerjaan klien, pantau progres, dan urus invoice dalam satu platform yang ringkas.",
