@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ProjectRouteImport } from './routes/project'
 import { Route as RegisterRouteImport } from './routes/register'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoiceRoute = InvoiceRouteImport.update({
+  id: '/invoice',
+  path: '/invoice',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -29,6 +36,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectRoute = ProjectRouteImport.update({
+  id: '/project',
+  path: '/project',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -37,35 +49,50 @@ const RegisterRoute = RegisterRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/invoice': typeof InvoiceRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/project': typeof ProjectRoute
   '/register': typeof RegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/invoice': typeof InvoiceRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/project': typeof ProjectRoute
   '/register': typeof RegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/invoice': typeof InvoiceRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/project': typeof ProjectRoute
   '/register': typeof RegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/profile' | '/register'
+  fullPaths: '/' | '/invoice' | '/login' | '/profile' | '/project' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/profile' | '/register'
-  id: '__root__' | '/' | '/login' | '/profile' | '/register'
+  to: '/' | '/invoice' | '/login' | '/profile' | '/project' | '/register'
+  id:
+    | '__root__'
+    | '/'
+    | '/invoice'
+    | '/login'
+    | '/profile'
+    | '/project'
+    | '/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InvoiceRoute: typeof InvoiceRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
+  ProjectRoute: typeof ProjectRoute
   RegisterRoute: typeof RegisterRoute
 }
 
@@ -76,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoice': {
+      id: '/invoice'
+      path: '/invoice'
+      fullPath: '/invoice'
+      preLoaderRoute: typeof InvoiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -92,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/project': {
+      id: '/project'
+      path: '/project'
+      fullPath: '/project'
+      preLoaderRoute: typeof ProjectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -104,8 +145,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InvoiceRoute: InvoiceRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
+  ProjectRoute: ProjectRoute,
   RegisterRoute: RegisterRoute,
 }
 export const routeTree = rootRouteImport

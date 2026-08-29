@@ -21,7 +21,7 @@ import {
 import { toast } from "@repo/ui/components/sonner";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "@tanstack/react-router";
-import { LayoutDashboardIcon, LogOutIcon, MonitorIcon, UserRoundIcon } from "lucide-react";
+import { Folder, LayoutDashboardIcon, LogOutIcon, ReceiptText, UserRoundIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { meQueryOptions, useLogoutMutation } from "../auth/hooks/use-auth";
 import { HeaderControls } from "./header-controls";
@@ -47,6 +47,8 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
 
   const navItems = [
     { icon: LayoutDashboardIcon, label: t("nav.dashboard"), to: "/" },
+    { icon: Folder, label: t("nav.projects"), to: "/project" },
+    { icon: ReceiptText, label: t("nav.invoice"), to: "/invoice" },
     { icon: UserRoundIcon, label: t("nav.profile"), to: "/profile" },
   ] as const;
 
@@ -58,9 +60,7 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" asChild tooltip={t("nav.brand")}>
                 <Link to="/">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-sidebar-primary text-sm font-semibold text-sidebar-primary-foreground">
-                    <MonitorIcon className="size-4" />
-                  </span>
+                  <img src="/images/favicon.svg" alt="logo" className="size-8" />
                   <span className="font-semibold group-data-[collapsible=icon]:hidden">
                     {t("nav.brand")}
                   </span>

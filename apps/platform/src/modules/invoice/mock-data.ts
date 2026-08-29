@@ -1,0 +1,76 @@
+import type { Invoice, InvoiceProjectSummary } from "./types";
+
+export const mockInvoiceProjects: InvoiceProjectSummary[] = [
+  {
+    id: "proj_01",
+    slug: "ecommerce-mobile-app",
+    title: "E-Commerce Mobile App Redesign",
+    clientName: "PT Global Retail Nusantara",
+    freelancerName: "Zaghy Zalayetha",
+  },
+  {
+    id: "proj_02",
+    slug: "ai-support-portal",
+    title: "AI Customer Support Chatbot Portal",
+    clientName: "Zaghy Zalsoft Studio",
+    freelancerName: "Zaghy Zalayetha",
+  },
+  {
+    id: "proj_03",
+    slug: "corporate-brand-identity",
+    title: "Corporate Brand Identity & Guidelines",
+    clientName: "Entropy Labs",
+    freelancerName: "Zaghy Zalayetha",
+  },
+];
+
+export const mockInvoices: Invoice[] = [
+  {
+    id: "inv_2026_001",
+    projectId: "proj_01",
+    project: mockInvoiceProjects[0]!,
+    amount: 15000000,
+    currency: "IDR",
+    status: "PAID",
+    description: "Milestone 1: Wireframing & UX Flow System Prototype",
+    paymentMethod: "Bank Central Asia (BCA) - 8801234567",
+    paymentLink: "https://pay.entrosync.com/inv_2026_001",
+    invoiceNote: "Terima kasih atas pembayaran tepat waktu.",
+    issuedDate: "2026-08-01T00:00:00.000Z",
+    dueDate: "2026-08-15T00:00:00.000Z",
+    createdAt: "2026-08-01T08:30:00.000Z",
+    updatedAt: "2026-08-14T14:20:00.000Z",
+  },
+  {
+    id: "inv_2026_002",
+    projectId: "proj_02",
+    project: mockInvoiceProjects[1]!,
+    amount: 5750000,
+    currency: "IDR",
+    status: "PENDING",
+    description: "Setup server & fine-tuning base LLM support agent",
+    paymentMethod: "Bank Mandiri - 137001928374",
+    paymentLink: "https://pay.entrosync.com/inv_2026_002",
+    invoiceNote: "Pembayaran jatuh tempo dalam 14 hari kerja.",
+    issuedDate: "2026-08-20T00:00:00.000Z",
+    dueDate: "2026-09-03T00:00:00.000Z",
+    createdAt: "2026-08-20T09:00:00.000Z",
+    updatedAt: "2026-08-20T09:00:00.000Z",
+  },
+  {
+    id: "inv_2026_003",
+    projectId: "proj_03",
+    project: mockInvoiceProjects[2]!,
+    amount: 1200,
+    currency: "USD",
+    status: "PENDING",
+    description: "Initial Branding Concept & Logo Assets Package",
+    paymentMethod: "Wise Transfer / Stripe",
+    paymentLink: "https://buy.stripe.com/mock-link-1200",
+    invoiceNote: "All design source vectors included in final delivery.",
+    issuedDate: "2026-08-10T00:00:00.000Z",
+    dueDate: "2026-08-24T00:00:00.000Z", // Past due
+    createdAt: "2026-08-10T10:00:00.000Z",
+    updatedAt: "2026-08-10T10:00:00.000Z",
+  },
+];
