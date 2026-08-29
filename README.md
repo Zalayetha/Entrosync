@@ -1,176 +1,269 @@
-# Monorepo Template
+<p align="center">
+  <h1 align="center">Entrosync</h1>
+</p>
 
-pnpm workspace with:
+<p align="center">
+  <a href="#license"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://github.com/pnpm/pnpm"><img src="https://img.shields.io/badge/pnpm-v10-orange.svg" alt="pnpm"></a>
+  <a href="https://hono.dev"><img src="https://img.shields.io/badge/API-Hono-E36002.svg" alt="Hono"></a>
+  <a href="https://react.dev"><img src="https://img.shields.io/badge/Frontend-React%2019-61DAFB.svg" alt="React"></a>
+  <a href="https://tanstack.com/router"><img src="https://img.shields.io/badge/Router-TanStack%20Router-FF4154.svg" alt="TanStack Router"></a>
+</p>
 
-- `apps/api`: Hono API on Node.js.
-- `apps/platform`: React + Vite + TanStack Router file routes + TanStack Query.
-- `apps/admin`: React + Vite + TanStack Router file routes + TanStack Query.
-- `packages/api-client`: typed Hono RPC client shared by the frontend apps.
-- `packages/logger`: Pino logging and OpenTelemetry setup for server applications.
-- `packages/storage`: S3-compatible object storage primitives.
-- `packages/ui`: shared shadcn components and frontend i18next setup.
-- `packages/worker`: Redis + BullMQ worker primitives.
+<p align="center">
+  <a href="#features"><b>Features</b></a> ·
+  <a href="#workspace-structure"><b>Structure</b></a> ·
+  <a href="#quick-start"><b>Quick Start</b></a> ·
+  <a href="#modules--integrations"><b>Modules</b></a> ·
+  <a href="#deployment"><b>Deployment</b></a>
+</p>
 
-Packages are source-only: they export their `.ts`/`.tsx` files directly and do not have a build step.
-Runtime-specific environment validation lives with the API and worker that consume it.
+> **Your projects and clients, perfectly in sync.**  
+> Entrosync is an open-source client portal and project collaboration platform designed for modern teams, agencies, and builders.
 
-## Setup
+---
 
-```sh
+Entrosync unites project tracking, milestone delivery, client feedback, invoices, and shared resources in one unified, high-performance monorepo. It gives clients a transparent portal to track deliverables while giving your team a clean command center to manage work.
+
+---
+
+## ✨ Features
+
+- 🎯 **Project & Milestone Delivery** — Organize work into projects, milestones, and issues with status tracking, estimates, and hierarchical comment threads.
+- 🤝 **Client Portals & Token Invites** — Share secure, guest-accessible project views with clients without friction or complex onboarding.
+- 💳 **Invoicing & Payments** — Track billables, payment statuses, and currency formatting (USD, IDR) with direct payment links and notes.
+- 💬 **Real-time Feedback & Activity Logs** — Collect client reviews, track ratings, and maintain an immutable project audit log.
+- 📦 **Centralized Resource Hub** — Store project documentation links and file assets with S3-compatible cloud storage.
+- ⚡ **End-to-End Type Safety** — Zero-cost Hono RPC typing across API and frontend clients with `@repo/api-client`.
+- 🔐 **Modern Auth & RBAC** — Powered by Better Auth with session management, role-based access control, and admin CLI tools.
+- 🛠️ **Production-Ready Observability** — Structured Pino logging with OpenTelemetry tracing across services and background workers.
+
+---
+
+## 🏗️ Workspace Structure
+
+Entrosync is organized as a modular pnpm monorepo:
+
+### Applications (`apps/`)
+
+| App | Description | Tech Stack |
+| :--- | :--- | :--- |
+| [`apps/api`](./apps/api) | High-performance backend API & RPC endpoints | Hono, Node.js, Prisma ORM, PostgreSQL, Redis |
+| [`apps/platform`](./apps/platform) | Main client and workspace management portal | React 19, Vite, TanStack Router & Query, Tailwind CSS |
+| [`apps/admin`](./apps/admin) | Administration dashboard and system control | React 19, Vite, TanStack Router & Query, Shadcn UI |
+
+### Packages (`packages/`)
+
+| Package | Description |
+| :--- | :--- |
+| [`packages/api-client`](./packages/api-client) | Typed Hono RPC client shared across frontend applications |
+| [`packages/logger`](./packages/logger) | Pino structured logging and OpenTelemetry tracing SDK setup |
+| [`packages/storage`](./packages/storage) | S3-compatible object storage primitives (AWS S3, Cloudflare R2, MinIO) |
+| [`packages/ui`](./packages/ui) | Shared UI components (Shadcn/Radix), Tailwind primitives, and i18next setup |
+| [`packages/worker`](./packages/worker) | Redis + BullMQ background job processing primitives |
+
+> All workspace packages are source-only: they export `.ts`/`.tsx` files directly with zero build overhead.
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (>= 20.x)
+- [pnpm](https://pnpm.io/) (>= 10.x)
+- [Docker](https://www.docker.com/) & Docker Compose
+
+### 1. Clone & Install Dependencies
+
+```bash
+git clone https://github.com/Zalayetha/Entrosync.git
+cd Entrosync
 pnpm install
+```
+
+### 2. Configure Environment
+
+Copy the example environment configuration:
+
+```bash
 cp .env.example .env
+```
+
+Generate a secure authentication secret:
+
+```bash
+# Set BETTER_AUTH_SECRET in .env
+openssl rand -base64 32
+```
+
+### 3. Start Local Infrastructure
+
+Launch PostgreSQL and Redis using Docker Compose:
+
+```bash
 docker compose -f docker-compose.dev.yaml up -d
+```
+
+- **PostgreSQL**: `localhost:15432`
+- **Redis**: `localhost:16379`
+
+### 4. Setup Database
+
+Generate Prisma client and run migrations:
+
+```bash
 pnpm db:generate
 pnpm db:migrate
 ```
 
-## Development
+### 5. Run Development Servers
 
-```sh
+Start all applications concurrently:
+
+```bash
+pnpm dev
+```
+
+Or run individual apps independently:
+
+```bash
+# API Server (http://localhost:8000)
 pnpm --filter @repo/api dev
+
+# Platform App (http://localhost:3000)
 pnpm --filter @repo/platform dev
+
+# Admin Dashboard (http://localhost:4000)
 pnpm --filter @repo/admin dev
+
+# Background Worker
 pnpm --filter @repo/worker dev
 ```
 
-## Tests
+### 6. Create Admin User
 
-```sh
-pnpm test
-```
+Create or promote a superuser account:
 
-This runs the base Vitest suites for API, Platform, Admin, and Worker.
-
-## Auth and API Client
-
-The API uses Better Auth for email/password auth, session cookies, and admin roles. Better Auth is mounted at `/api/auth/*`; custom API routes use Hono RPC types through `packages/api-client`.
-
-Frontend apps should use:
-
-- Better Auth client methods for sign-in, sign-up, and sign-out.
-- `createApiClient()` from `@repo/api-client` for typed API routes such as `/session` and `/users`.
-
-Configure auth with `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, and `CLIENT_ORIGINS` in `.env`.
-Use a unique `BETTER_AUTH_SECRET`; production environments reject the default value and secrets
-shorter than 32 characters.
-
-Create or promote an admin user:
-
-```sh
+```bash
 pnpm createsuperuser
 ```
 
-## Storage
+---
 
-`packages/storage` exports S3-compatible helpers for AWS S3, MinIO, Cloudflare R2, DigitalOcean Spaces, and similar providers.
+## 🧪 Testing & Code Quality
+
+Run tests across all workspaces:
+
+```bash
+# Run Vitest test suites
+pnpm test
+
+# Type-check TypeScript across all packages
+pnpm typecheck
+
+# Check and fix formatting / linting with Biome
+pnpm check
+pnpm check:fix
+```
+
+---
+
+## 🔌 Modules & Integrations
+
+### Authentication (`Better Auth`)
+
+Better Auth handles sessions, cookies, and RBAC mounted at `/api/auth/*`.
+
+- Configure `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, and `CLIENT_ORIGINS` in `.env`.
+- Frontend apps utilize the typed client SDK for authentication and `@repo/api-client` for domain resources.
+
+### Object Storage (`packages/storage`)
+
+Compatible with AWS S3, Cloudflare R2, MinIO, and DigitalOcean Spaces:
 
 ```ts
 import { createStorage } from "@repo/storage";
 
 const storage = createStorage({
-  accessKeyId: "access-key",
-  bucket: "uploads",
-  forcePathStyle: false,
-  region: "ap-southeast-1",
-  secretAccessKey: "secret-key",
+  accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+  bucket: process.env.S3_BUCKET!,
+  region: process.env.S3_REGION!,
+  endpoint: process.env.S3_ENDPOINT,
 });
 
 await storage.putObject({
-  key: "uploads/example.txt",
-  body: "hello",
-  contentType: "text/plain",
+  key: "uploads/project-spec.pdf",
+  body: fileBuffer,
+  contentType: "application/pdf",
 });
 ```
 
-Configure it with `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and optional endpoint/path-style/public URL variables in `.env`.
+### Observability & Tracing (`packages/logger`)
 
-## Logging
-
-`packages/logger` exports Pino helpers for structured JSON logs.
+Structured JSON logging with OpenTelemetry trace correlation:
 
 ```ts
 import { createLogger } from "@repo/logger";
-import { loggerConfig } from "./config";
 
-const logger = createLogger({
-  ...loggerConfig,
-  service: "api",
-});
-
-logger.info({ userId: "user_123" }, "User signed in");
+const logger = createLogger({ service: "api" });
+logger.info({ projectId: "proj_123" }, "Milestone completed");
 ```
 
-Trace-aware helpers use OpenTelemetry-compatible `trace_id`, `span_id`, and `trace_flags` fields. When telemetry is enabled, active span context is attached to Pino logs automatically.
+Enable distributed tracing in `.env`:
 
-## Telemetry
-
-`packages/logger/telemetry` starts the OpenTelemetry Node SDK before API and worker modules load, so auto-instrumentation can patch supported Node libraries.
-
-Telemetry is disabled by default. For local span output:
-
-```sh
-ENABLE_TELEMETRY=true
-TELEMETRY_EXPORTER=console
-```
-
-For an OTLP HTTP collector:
-
-```sh
+```env
 ENABLE_TELEMETRY=true
 TELEMETRY_EXPORTER=otlp
 TELEMETRY_EXPORTER_OTLP_ENDPOINT="https://collector.example.com/v1/traces"
 TELEMETRY_API_KEY="..."
-TELEMETRY_API_KEY_HEADER="authorization"
 ```
 
-If `TELEMETRY_API_KEY_HEADER` is `authorization`, the exporter sends `Authorization: Bearer <key>`. Other header names send the raw key value, which fits providers that expect headers such as `x-honeycomb-team`.
+---
 
-## Docker
+## 🐳 Deployment
 
-```sh
-cp .env.example .env
-# Set BETTER_AUTH_SECRET in .env, for example:
-openssl rand -base64 32
-docker compose up --build
+### Production Docker API
+
+To run the API and PostgreSQL in production Docker containers:
+
+```bash
+docker compose up --build -d
 ```
 
-The production Compose file builds only the API application and its Postgres database. The API is available at `http://localhost:8000` by default; override `API_HOST_PORT` when another host port is required.
+The container automatically deploys database migrations via `pnpm db:deploy` on boot. The API is exposed at `http://localhost:8000`.
 
-The API container runs Prisma migrations with `pnpm db:deploy` on startup. If you already created a local Compose database with the older `db:push` flow, reset the local volume or baseline the database before switching to migrations.
+### Cloudflare Frontend Workers
 
-For local development, `docker-compose.dev.yaml` still provides Postgres and Redis while the API, worker, and frontends run directly through pnpm:
+`apps/platform` and `apps/admin` deploy as high-performance Cloudflare Workers with SPA fallback and immutable asset caching.
 
-- API health: `http://localhost:8000/health`
-- Postgres with `docker-compose.dev.yaml`: `localhost:15432`
-- Redis with `docker-compose.dev.yaml`: `localhost:16379`
-
-## Cloudflare frontend deployment
-
-Admin and Platform deploy as separate Cloudflare Workers with static assets. Their Wrangler configurations enable SPA fallback routing and preserve the security and immutable asset-cache headers previously supplied by Caddy.
-
-Authenticate Wrangler once:
-
-```sh
+```bash
+# Authenticate Wrangler
 pnpm --filter @repo/platform exec wrangler login
-```
 
-Preview either production build through the local Workers runtime:
-
-```sh
+# Preview builds locally
 pnpm --filter @repo/platform preview:cloudflare
 pnpm --filter @repo/admin preview:cloudflare
+
+# Deploy to Cloudflare
+VITE_API_URL="https://api.yourdomain.com" pnpm deploy:platform
+VITE_API_URL="https://api.yourdomain.com" pnpm deploy:admin
 ```
 
-Set the public API URL at build time and deploy each frontend:
+---
 
-```sh
-VITE_API_URL="https://api.example.com" pnpm deploy:platform
-VITE_API_URL="https://api.example.com" pnpm deploy:admin
-```
+## 🤝 Contributing
 
-The deployments use the Worker names `monorepo-template-platform` and `monorepo-template-admin`. Configure their custom domains in Cloudflare, then allow those origins in the API environment:
+Contributions are welcome! Please follow these steps:
 
-```env
-BETTER_AUTH_URL="https://api.example.com"
-CLIENT_ORIGINS="https://app.example.com,https://admin.example.com"
-```
+1. Fork the repository and create your feature branch: `git checkout -b feature/amazing-feature`.
+2. Ensure all tests and lint checks pass: `pnpm test && pnpm check`.
+3. Commit changes using Conventional Commits: `git commit -m 'feat: add project timeline view'`.
+4. Open a Pull Request with a clear summary of your changes.
+
+---
+
+## 📄 License
+
+Distributed under the [MIT License](./LICENSE). See `LICENSE` for more information.
