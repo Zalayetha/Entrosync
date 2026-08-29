@@ -11,15 +11,10 @@ export function PayoutRow({ className, payout }: PayoutRowProps) {
   const { day, month } = formatPayoutDate(payout.dueDate ?? payout.issuedDate);
 
   return (
-    <div
-      className={cn(
-        "flex items-center justify-between gap-4 py-3.5 first:pt-0 last:pb-0",
-        className,
-      )}
-    >
-      <div className="flex min-w-0 items-center gap-3.5">
-        <div className="flex size-11 shrink-0 flex-col items-center justify-center rounded-lg bg-muted text-center">
-          <span className="text-[10px] font-semibold uppercase leading-none tracking-wider text-muted-foreground">
+    <div className={cn("flex items-center justify-between gap-4 py-3", className)}>
+      <div className="flex min-w-0 items-center gap-3">
+        <div className="flex size-10 shrink-0 flex-col items-center justify-center rounded-lg bg-muted text-center">
+          <span className="text-[10px] font-semibold uppercase leading-none tracking-wide text-muted-foreground">
             {month}
           </span>
           <span className="text-sm font-bold leading-tight text-foreground">{day}</span>

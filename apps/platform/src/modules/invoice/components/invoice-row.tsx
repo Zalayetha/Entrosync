@@ -14,7 +14,7 @@ export function InvoiceRow({ invoice, onSelect }: InvoiceRowProps) {
 
   return (
     <TableRow
-      className="cursor-pointer transition-colors hover:bg-muted/50"
+      className="cursor-pointer transition-colors hover:bg-muted/45"
       onClick={() => onSelect(invoice)}
     >
       <TableCell className="font-mono text-xs font-semibold text-foreground">
@@ -29,7 +29,7 @@ export function InvoiceRow({ invoice, onSelect }: InvoiceRowProps) {
       <TableCell>
         <InvoiceStatusBadge status={invoice.status} />
       </TableCell>
-      <TableCell className="text-muted-foreground text-xs">
+      <TableCell className="text-xs text-muted-foreground">
         {formatInvoiceDate(invoice.issuedDate)}
       </TableCell>
       <TableCell

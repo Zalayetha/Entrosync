@@ -15,7 +15,6 @@ import { Link } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
 import { HeaderControls } from "../modules/app-shell/header-controls";
 import { useLoginMutation } from "../modules/auth/hooks/use-auth";
-import { Copyright } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -41,10 +40,9 @@ function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      {/*Header*/}
-      <header className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-        <div className="flex gap-2 items-center">
+    <div className="flex min-h-screen flex-col bg-background">
+      <header className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between border-b px-5 sm:px-6 lg:border-transparent">
+        <div className="flex items-center gap-2">
           <img alt={t("auth.login.logoAlt")} src="/images/favicon.svg" className="h-8 w-auto" />
           <Link to="/" className="font-semibold">
             {t("nav.brand")}
@@ -52,56 +50,46 @@ function LoginPage() {
         </div>
         <HeaderControls />
       </header>
-      {/*End Header*/}
 
-      {/*Main*/}
-      <main className="min-h-screen flex flex-col lg:flex-row">
-        {/*Left Side*/}
-        <div className="flex-1 flex flex-col justify-between gap-12 p-8 lg:p-16">
-          <div className="flex flex-col justify-center h-full items-start text-left">
-            <div className="max-w-md">
-              <h1 className="text-4xl font-bold mb-4">{t("auth.login.heroTitle")}</h1>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                {t("auth.login.heroDescription")}
-              </p>
-            </div>
-            {/* Copyright */}
-            <div className={`flex items-center gap-1 text-sm text-gray-500 flex-row-reverse`}>
-              <Copyright size={12} />
-              <span>2026 {t("nav.brand")}</span>
-            </div>
-          </div>
-        </div>
-        {/*End Left Side*/}
+      <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 py-10 sm:px-6 lg:grid-cols-[1fr_28rem] lg:px-8">
+        <section className="max-w-xl">
+          <h1 className="text-4xl font-semibold leading-tight text-foreground text-balance">
+            {t("auth.login.heroTitle")}
+          </h1>
+          <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
+            {t("auth.login.heroDescription")}
+          </p>
+        </section>
 
-        {/*Right Side*/}
-        <div className="flex-1 flex flex-col justify-center p-8 lg:p-16">
-          <Card className="w-full max-w-md bg-background border-none shadow-none">
-            <CardHeader>
-              <CardTitle className="text-2xl text-center">{t("auth.login.title")}</CardTitle>
-              <CardDescription className="text-center">
-                {t("auth.login.description")}
-              </CardDescription>
+        <section className="w-full">
+          <Card className="w-full p-0">
+            <CardHeader className="p-6 pb-4 text-left">
+              <CardTitle className="text-xl">{t("auth.login.title")}</CardTitle>
+              <CardDescription>{t("auth.login.description")}</CardDescription>
+              {/*
               <Button
                 onClick={() => console.log("Login with google")}
                 type="button"
-                className="w-full rounded-full my-2"
+                className="mt-3 w-full"
+                variant="outline"
               >
                 {t("auth.login.googleSubmit")}
               </Button>
+              */}
             </CardHeader>
 
-            {/* Divider */}
-            <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-neutral-800" />
+            {/*
+            <div className="relative flex items-center justify-center px-6">
+              <div className="absolute inset-x-6 flex items-center">
+                <div className="w-full border-t" />
               </div>
-              <span className="relative bg-black px-3 text-xs text-gray-500">
+              <span className="relative bg-card px-3 text-xs font-medium text-muted-foreground">
                 {t("auth.login.divider")}
               </span>
             </div>
+            */}
 
-            <CardContent>
+            <CardContent className="p-6">
               <form className="grid gap-4" onSubmit={handleSubmit}>
                 <div className="grid gap-2">
                   <Label htmlFor="email">{t("auth.login.email")}</Label>
@@ -132,8 +120,7 @@ function LoginPage() {
               </form>
             </CardContent>
           </Card>
-        </div>
-        {/*End Right Side*/}
+        </section>
       </main>
     </div>
   );

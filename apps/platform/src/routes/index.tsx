@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useTranslation } from "@repo/ui/i18n";
 import { PlatformAppShell } from "../modules/app-shell/app-shell";
 import { meQueryOptions } from "../modules/auth/hooks/use-auth";
 import { UnauthorizedError } from "../modules/auth/services";
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/")({
 });
 
 function DashboardPage() {
+  const { t } = useTranslation();
   const user = useQuery(meQueryOptions);
 
   if (!user.data) {
@@ -38,7 +40,10 @@ function DashboardPage() {
 
   return (
     <PlatformAppShell>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-7">
+        <div>
+          <h1 className="text-3xl font-semibold text-foreground">{t("dashboard.title")}</h1>
+        </div>
         <MetricsSection stats={mockDashboardStats} />
         <ActiveProjectsSection projects={mockActiveProjects} />
         <PayoutScheduleSection payouts={mockPayoutSchedule} />

@@ -25,25 +25,13 @@ export function InvoiceTable({ invoices, onSelectInvoice }: InvoiceTableProps) {
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[140px] text-xs font-semibold uppercase tracking-wider">
-              {t("invoice.table.id")}
-            </TableHead>
-            <TableHead className="text-xs font-semibold uppercase tracking-wider">
-              {t("invoice.table.project")}
-            </TableHead>
-            <TableHead className="text-xs font-semibold uppercase tracking-wider">
-              {t("invoice.table.amount")}
-            </TableHead>
-            <TableHead className="w-[120px] text-xs font-semibold uppercase tracking-wider">
-              {t("invoice.table.status")}
-            </TableHead>
-            <TableHead className="w-[130px] text-xs font-semibold uppercase tracking-wider">
-              {t("invoice.table.issued")}
-            </TableHead>
-            <TableHead className="w-[140px] text-xs font-semibold uppercase tracking-wider">
-              {t("invoice.table.due")}
-            </TableHead>
-            <TableHead className="w-[60px] text-right text-xs font-semibold uppercase tracking-wider" />
+            <TableHead className="w-[140px]">{t("invoice.table.id")}</TableHead>
+            <TableHead>{t("invoice.table.project")}</TableHead>
+            <TableHead>{t("invoice.table.amount")}</TableHead>
+            <TableHead className="w-[120px]">{t("invoice.table.status")}</TableHead>
+            <TableHead className="w-[130px]">{t("invoice.table.issued")}</TableHead>
+            <TableHead className="w-[140px]">{t("invoice.table.due")}</TableHead>
+            <TableHead className="w-[60px] text-right" />
           </TableRow>
         </TableHeader>
         <TableBody>

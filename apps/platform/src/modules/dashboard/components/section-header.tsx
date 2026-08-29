@@ -19,9 +19,9 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className="flex items-center justify-between gap-4">
-      <div className="flex min-w-0 items-center gap-3">
-        <Icon className="size-5 shrink-0 text-muted-foreground" />
-        <h2 className="truncate text-lg font-semibold">{title}</h2>
+      <div className="flex min-w-0 items-center gap-2.5">
+        <Icon className="size-4 shrink-0 text-muted-foreground" />
+        <h2 className="truncate text-base font-semibold">{title}</h2>
       </div>
       {actionLabel && actionHref ? (
         <Button

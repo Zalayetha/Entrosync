@@ -5,7 +5,7 @@ export function HeaderControls() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="hidden items-center gap-2 sm:flex">
       <ThemeSelector
         ariaLabel={t("theme.label")}
         labels={{

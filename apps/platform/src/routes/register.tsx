@@ -15,7 +15,6 @@ import { Link } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
 import { HeaderControls } from "../modules/app-shell/header-controls";
 import { useRegisterMutation } from "../modules/auth/hooks/use-auth";
-import { Copyright } from "lucide-react";
 
 export const Route = createFileRoute("/register")({
   component: RegisterPage,
@@ -48,10 +47,9 @@ function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      {/*Header*/}
-      <header className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-        <div className="flex gap-2 items-center">
+    <div className="flex min-h-screen flex-col bg-background">
+      <header className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between border-b px-5 sm:px-6 lg:border-transparent">
+        <div className="flex items-center gap-2">
           <img alt={t("auth.register.logoAlt")} src="/images/favicon.svg" className="h-8 w-auto" />
           <Link to="/" className="font-semibold">
             {t("nav.brand")}
@@ -59,36 +57,24 @@ function RegisterPage() {
         </div>
         <HeaderControls />
       </header>
-      {/*End Header*/}
-      <main className="flex flex-1 items-center justify-center px-6 py-12">
-        {/*Left Side*/}
-        <div className="flex-1 flex flex-col justify-between gap-12 p-8 lg:p-16">
-          <div className="flex flex-col justify-center h-full items-start text-left">
-            <div className="max-w-md">
-              <h1 className="text-4xl font-bold mb-4">{t("auth.register.heroTitle")}</h1>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                {t("auth.register.heroDescription")}
-              </p>
-            </div>
-            {/* Copyright */}
-            <div className={`flex items-center gap-1 text-sm text-gray-500 flex-row-reverse`}>
-              <Copyright size={12} />
-              <span>2026 {t("nav.brand")}</span>
-            </div>
-          </div>
-        </div>
-        {/*End Left Side*/}
 
-        {/*Right Side*/}
-        <div className="flex-1 flex flex-col justify-center p-8 lg:p-16">
-          <Card className="w-full max-w-md bg-background border-none shadow-none">
-            <CardHeader>
-              <CardTitle className="text-2xl text-center">{t("auth.register.title")}</CardTitle>
-              <CardDescription className="text-center">
-                {t("auth.register.description")}
-              </CardDescription>
+      <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 py-10 sm:px-6 lg:grid-cols-[1fr_28rem] lg:px-8">
+        <section className="max-w-xl">
+          <h1 className="text-4xl font-semibold leading-tight text-foreground text-balance">
+            {t("auth.register.heroTitle")}
+          </h1>
+          <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
+            {t("auth.register.heroDescription")}
+          </p>
+        </section>
+
+        <section className="w-full">
+          <Card className="w-full p-0">
+            <CardHeader className="p-6 pb-4 text-left">
+              <CardTitle className="text-xl">{t("auth.register.title")}</CardTitle>
+              <CardDescription>{t("auth.register.description")}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6 pt-0">
               <form className="grid gap-4" onSubmit={handleSubmit}>
                 <div className="grid gap-2">
                   <Label htmlFor="name">{t("auth.register.name")}</Label>
@@ -145,8 +131,7 @@ function RegisterPage() {
               </form>
             </CardContent>
           </Card>
-        </div>
-        {/*End Right Side*/}
+        </section>
       </main>
     </div>
   );

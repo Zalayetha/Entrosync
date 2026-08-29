@@ -29,7 +29,7 @@ type ThemeSelectorProps = {
 
 function ThemeProvider({
   attribute = "class",
-  defaultTheme = "system",
+  defaultTheme = "light",
   enableSystem = true,
   disableTransitionOnChange = true,
   ...props
@@ -54,7 +54,7 @@ function ThemeSelector({ ariaLabel = "Theme", className, labels }: ThemeSelector
       <SelectTrigger
         aria-label={ariaLabel}
         className={cn(
-          "h-8 min-w-[6.25rem] rounded-md border-border/70 bg-background/80 px-2 text-xs font-semibold text-foreground shadow-none hover:bg-accent focus-visible:ring-2",
+          "h-8 min-w-[4.75rem] rounded-md border-border/70 bg-background/80 px-2 text-xs font-semibold text-foreground shadow-none hover:bg-accent focus-visible:ring-2 sm:min-w-[6.25rem]",
           className,
         )}
         size="sm"

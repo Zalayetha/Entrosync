@@ -16,7 +16,7 @@ export function InvoiceStatusBadge({ status, className }: InvoiceStatusBadgeProp
       <Badge
         variant="outline"
         className={cn(
-          "border-emerald-500/30 bg-emerald-500/15 font-semibold text-emerald-700 dark:text-emerald-400",
+          "border-emerald-500/20 bg-emerald-500/10 font-semibold text-emerald-700 dark:text-emerald-400",
           className,
         )}
       >
@@ -29,7 +29,7 @@ export function InvoiceStatusBadge({ status, className }: InvoiceStatusBadgeProp
     <Badge
       variant="outline"
       className={cn(
-        "border-amber-500/30 bg-amber-500/15 font-semibold text-amber-700 dark:text-amber-400",
+        "border-amber-500/20 bg-amber-500/10 font-semibold text-amber-700 dark:text-amber-400",
         className,
       )}
     >

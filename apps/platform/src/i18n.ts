@@ -88,6 +88,11 @@ const resources = {
           title: "Active Projects",
           empty: "No active projects found.",
           completion: "Completion",
+          table: {
+            client: "Client",
+            project: "Project",
+            status: "Status",
+          },
           status: {
             backlog: "Backlog",
             planned: "Planned",
@@ -294,6 +299,11 @@ const resources = {
           title: "Proyek Aktif",
           empty: "Tidak ada proyek aktif.",
           completion: "Progress",
+          table: {
+            client: "Klien",
+            project: "Proyek",
+            status: "Status",
+          },
           status: {
             backlog: "Backlog",
             planned: "Direncanakan",

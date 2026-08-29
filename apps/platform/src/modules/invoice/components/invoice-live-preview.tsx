@@ -14,13 +14,13 @@ export function InvoiceLivePreview({ formData, project }: InvoiceLivePreviewProp
   const formattedAmount = formatInvoiceAmount(formData.amount || 0, formData.currency || "IDR");
 
   return (
-    <div className="sticky top-6 flex flex-col justify-between rounded-xl border border-zinc-200 bg-white p-6 text-zinc-950 shadow-2xl min-h-[640px]">
+    <div className="sticky top-6 flex min-h-[640px] flex-col justify-between rounded-lg border border-zinc-200 bg-white p-6 text-zinc-950 shadow-[0_8px_24px_rgb(24_24_27/0.06)]">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between border-b border-zinc-100 pb-5">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="flex size-7 items-center justify-center rounded bg-zinc-950 font-bold text-xs text-white">
+              <span className="flex size-7 items-center justify-center rounded-md bg-zinc-950 font-bold text-xs text-white">
                 E
               </span>
               <span className="font-bold text-lg tracking-tight text-zinc-950">ENTROSYNC</span>
@@ -28,7 +28,7 @@ export function InvoiceLivePreview({ formData, project }: InvoiceLivePreviewProp
             <p className="text-xs text-zinc-500">Invoice & Milestone System</p>
           </div>
           <div className="text-right">
-            <span className="inline-block rounded bg-amber-100 px-2 py-0.5 font-semibold text-amber-800 text-xs uppercase tracking-wider">
+            <span className="inline-block rounded-md bg-amber-100 px-2 py-0.5 font-semibold text-amber-800 text-xs uppercase tracking-wide">
               {t("invoice.status.pending")}
             </span>
             <p className="mt-1 font-mono text-xs text-zinc-400">#INV-DRAFT</p>
@@ -38,14 +38,14 @@ export function InvoiceLivePreview({ formData, project }: InvoiceLivePreviewProp
         {/* Client & Project Details */}
         <div className="grid grid-cols-2 gap-4 text-xs">
           <div className="space-y-1">
-            <p className="font-semibold text-zinc-400 uppercase tracking-wider">Billed To</p>
+            <p className="font-semibold text-zinc-400 uppercase tracking-wide">Billed To</p>
             <p className="font-semibold text-sm text-zinc-900">
               {project?.clientName || "Client / Company"}
             </p>
             <p className="text-zinc-600">{project?.title || "Select a project"}</p>
           </div>
           <div className="space-y-1 text-right">
-            <p className="font-semibold text-zinc-400 uppercase tracking-wider">Dates</p>
+            <p className="font-semibold text-zinc-400 uppercase tracking-wide">Dates</p>
             <p className="text-zinc-600">
               <span className="font-medium text-zinc-800">Issued: </span>
               {formData.issuedDate ? formatInvoiceDate(formData.issuedDate) : "Select date"}
@@ -58,18 +58,18 @@ export function InvoiceLivePreview({ formData, project }: InvoiceLivePreviewProp
         </div>
 
         {/* Item Table */}
-        <div className="rounded-lg border border-zinc-100 overflow-hidden">
-          <div className="bg-zinc-50 px-3 py-2 text-xs font-semibold text-zinc-500 uppercase tracking-wider flex justify-between">
+        <div className="overflow-hidden rounded-lg border border-zinc-100">
+          <div className="flex justify-between bg-zinc-50 px-3 py-2 text-xs font-semibold text-zinc-500 uppercase tracking-wide">
             <span>Description</span>
             <span>Amount</span>
           </div>
-          <div className="p-3 flex justify-between items-start text-xs border-b border-zinc-100 min-h-[50px]">
-            <span className="text-zinc-800 font-medium max-w-[240px] leading-relaxed">
+          <div className="flex min-h-[50px] items-start justify-between border-b border-zinc-100 p-3 text-xs">
+            <span className="max-w-[240px] font-medium leading-relaxed text-zinc-800">
               {formData.description || "Project Milestone & Services"}
             </span>
             <span className="font-semibold text-zinc-950 font-mono">{formattedAmount}</span>
           </div>
-          <div className="bg-zinc-50/50 p-3 flex justify-between items-center text-sm font-bold text-zinc-950">
+          <div className="flex items-center justify-between bg-zinc-50/50 p-3 text-sm font-bold text-zinc-950">
             <span>Total</span>
             <span className="font-mono text-base">{formattedAmount}</span>
           </div>
@@ -78,7 +78,7 @@ export function InvoiceLivePreview({ formData, project }: InvoiceLivePreviewProp
         {/* Payment instructions / Link */}
         {formData.paymentMethod || formData.paymentLink ? (
           <div className="space-y-2 rounded-lg bg-zinc-50 p-3 text-xs">
-            <p className="font-semibold text-zinc-700 uppercase tracking-wider text-[11px]">
+            <p className="font-semibold text-zinc-700 uppercase tracking-wide text-[11px]">
               Payment Instructions
             </p>
             {formData.paymentMethod ? (
@@ -101,9 +101,7 @@ export function InvoiceLivePreview({ formData, project }: InvoiceLivePreviewProp
         {/* Notes */}
         {formData.invoiceNote ? (
           <div className="space-y-1 text-xs">
-            <p className="font-semibold text-zinc-500 uppercase tracking-wider text-[11px]">
-              Notes
-            </p>
+            <p className="font-semibold text-zinc-500 uppercase tracking-wide text-[11px]">Notes</p>
             <p className="text-zinc-600 italic">{formData.invoiceNote}</p>
           </div>
         ) : null}

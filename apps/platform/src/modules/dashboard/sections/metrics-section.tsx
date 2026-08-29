@@ -16,7 +16,7 @@ export function MetricsSection({ isLoading = false, stats }: MetricsSectionProps
     return (
       <section
         aria-label="Dashboard Metrics"
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
       >
         <StatCardSkeleton />
         <StatCardSkeleton />
@@ -32,7 +32,7 @@ export function MetricsSection({ isLoading = false, stats }: MetricsSectionProps
   return (
     <section
       aria-label="Dashboard Metrics"
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"
+      className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
     >
       <StatCard
         label={t("dashboard.metrics.revenue.label")}

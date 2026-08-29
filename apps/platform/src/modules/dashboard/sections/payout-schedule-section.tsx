@@ -13,7 +13,7 @@ export function PayoutScheduleSection({ payouts }: PayoutScheduleSectionProps) {
   const { t } = useTranslation();
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-3">
       <SectionHeader
         actionHref="/invoice"
         actionLabel={t("dashboard.viewAll")}
@@ -21,8 +21,8 @@ export function PayoutScheduleSection({ payouts }: PayoutScheduleSectionProps) {
         title={t("dashboard.payoutSchedule.title")}
       />
 
-      <Card className="rounded-2xl border bg-card p-0 shadow-sm">
-        <CardContent className="p-6">
+      <Card className="p-0">
+        <CardContent className="p-5">
           {payouts.length > 0 ? (
             <div className="divide-y divide-border">
               {payouts.map((payout) => (

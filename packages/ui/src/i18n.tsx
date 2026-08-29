@@ -81,7 +81,7 @@ export function LanguageSwitcher() {
     >
       <SelectTrigger
         aria-label={t("language.label")}
-        className="h-8 min-w-[4.25rem] rounded-md border-border/70 bg-background/80 px-2 text-xs font-semibold text-foreground shadow-none hover:bg-accent focus-visible:ring-2"
+        className="h-8 min-w-[3.75rem] rounded-md border-border/70 bg-background/80 px-2 text-xs font-semibold text-foreground shadow-none hover:bg-accent focus-visible:ring-2 sm:min-w-[4.25rem]"
         size="sm"
       >
         <SelectValue />

@@ -42,20 +42,15 @@ export function ActivityRow({ activity, className }: ActivityRowProps) {
   const { badgeClassName, icon: Icon } = getActivityBadgeConfig(activity.action);
 
   return (
-    <div
-      className={cn(
-        "flex items-start justify-between gap-4 py-3.5 first:pt-0 last:pb-0",
-        className,
-      )}
-    >
-      <div className="flex min-w-0 items-start gap-3.5">
+    <div className={cn("flex items-start justify-between gap-4 py-3", className)}>
+      <div className="flex min-w-0 items-start gap-3">
         <div
           className={cn(
-            "flex size-9 shrink-0 items-center justify-center rounded-lg",
+            "flex size-8 shrink-0 items-center justify-center rounded-lg",
             badgeClassName,
           )}
         >
-          <Icon className="size-4 shrink-0" />
+          <Icon className="size-3.5 shrink-0" />
         </div>
         <div className="min-w-0 space-y-0.5">
           <p className="truncate text-sm font-medium text-foreground">{activity.title}</p>

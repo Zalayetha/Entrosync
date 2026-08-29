@@ -26,18 +26,23 @@ export function StatCard({
   return (
     <Card
       className={cn(
-        "relative min-h-36 overflow-hidden rounded-2xl border bg-card p-0 shadow-sm",
+        "relative min-h-32 overflow-hidden p-0 transition-colors hover:border-primary/30",
         className,
       )}
     >
-      <CardContent className="relative flex h-full flex-col justify-between gap-6 p-6">
-        <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {label}
-          </p>
-          <div className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            {value}
+      <CardContent className="relative flex h-full flex-col justify-between gap-5 p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {label}
+            </p>
+            <div className="text-2xl font-semibold text-foreground tabular-nums sm:text-3xl">
+              {value}
+            </div>
           </div>
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
+            <WatermarkIcon className="size-4" />
+          </span>
         </div>
 
         {helper ? (
@@ -48,16 +53,11 @@ export function StatCard({
             <span>{helper}</span>
           </div>
         ) : null}
-
-        <WatermarkIcon
-          aria-hidden="true"
-          className="pointer-events-none absolute right-4 bottom-4 size-14 text-muted-foreground/15"
-        />
       </CardContent>
     </Card>
   );
 }
 
 export function StatCardSkeleton() {
-  return <Skeleton className="h-36 w-full rounded-2xl" />;
+  return <Skeleton className="h-32 w-full rounded-lg" />;
 }

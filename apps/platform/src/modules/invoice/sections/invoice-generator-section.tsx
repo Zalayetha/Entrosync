@@ -141,7 +141,6 @@ export function InvoiceGeneratorSection({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Header & Back Button */}
       <div className="flex items-center gap-3">
         <Button
           type="button"
@@ -155,7 +154,6 @@ export function InvoiceGeneratorSection({
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-        {/* Left Column: Form */}
         <div className="lg:col-span-7">
           <Card>
             <form onSubmit={handleSubmit}>
@@ -165,7 +163,6 @@ export function InvoiceGeneratorSection({
               </CardHeader>
 
               <CardContent className="grid gap-5">
-                {/* Project Selection */}
                 <Field>
                   <FieldLabel htmlFor={`${formId}-project`}>
                     {t("invoice.generator.fields.project")}
@@ -195,7 +192,6 @@ export function InvoiceGeneratorSection({
                   ) : null}
                 </Field>
 
-                {/* Currency & Amount */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <Field className="sm:col-span-1">
                     <FieldLabel htmlFor={`${formId}-currency`}>
@@ -235,7 +231,6 @@ export function InvoiceGeneratorSection({
                   </Field>
                 </div>
 
-                {/* Issued Date & Due Date */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <Field>
                     <FieldLabel htmlFor={`${formId}-issuedDate`}>
@@ -273,7 +268,6 @@ export function InvoiceGeneratorSection({
                   </Field>
                 </div>
 
-                {/* Description */}
                 <Field>
                   <div className="flex items-center justify-between">
                     <FieldLabel htmlFor={`${formId}-description`}>
@@ -292,7 +286,6 @@ export function InvoiceGeneratorSection({
                   />
                 </Field>
 
-                {/* Payment Method */}
                 <Field>
                   <div className="flex items-center justify-between">
                     <FieldLabel htmlFor={`${formId}-paymentMethod`}>
@@ -310,7 +303,6 @@ export function InvoiceGeneratorSection({
                   />
                 </Field>
 
-                {/* Payment Link */}
                 <Field>
                   <div className="flex items-center justify-between">
                     <FieldLabel htmlFor={`${formId}-paymentLink`}>
@@ -329,7 +321,6 @@ export function InvoiceGeneratorSection({
                   />
                 </Field>
 
-                {/* Invoice Note */}
                 <Field>
                   <div className="flex items-center justify-between">
                     <FieldLabel htmlFor={`${formId}-invoiceNote`}>
@@ -366,9 +357,8 @@ export function InvoiceGeneratorSection({
           </Card>
         </div>
 
-        {/* Right Column: Sticky Live Preview */}
         <div className="lg:col-span-5">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             {t("invoice.generator.livePreview")}
           </div>
           <InvoiceLivePreview formData={formData} project={selectedProject} />

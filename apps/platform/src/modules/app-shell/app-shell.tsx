@@ -60,7 +60,7 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" asChild tooltip={t("nav.brand")}>
                 <Link to="/">
-                  <img src="/images/favicon.svg" alt="logo" className="size-8" />
+                  <img src="/images/favicon.svg" alt="logo" className="size-7" />
                   <span className="font-semibold group-data-[collapsible=icon]:hidden">
                     {t("nav.brand")}
                   </span>
@@ -132,14 +132,14 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center justify-between border-b px-4">
+        <header className="flex h-14 shrink-0 items-center justify-between border-b bg-background/95 px-4">
           <div className="flex items-center gap-2">
             <SidebarTrigger />
             <span className="text-sm font-medium text-muted-foreground">{t("nav.brand")}</span>
           </div>
           <HeaderControls />
         </header>
-        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-6 py-8 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-5 py-7 sm:px-6 lg:px-8">
           {children}
         </div>
       </SidebarInset>

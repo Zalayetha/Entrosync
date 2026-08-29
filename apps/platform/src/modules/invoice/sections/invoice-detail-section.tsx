@@ -85,7 +85,7 @@ export function InvoiceDetailSection({
               <Button
                 type="button"
                 onClick={() => onToggleStatus(invoice.id)}
-                className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-600 dark:hover:bg-emerald-700"
+                className="gap-2 bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-700"
               >
                 <CheckCircle2 className="size-4" />
                 <span>{t("invoice.detail.markPaid")}</span>
@@ -100,7 +100,7 @@ export function InvoiceDetailSection({
         {/* Amount Card */}
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <DollarSign className="size-4 text-muted-foreground" />
               {t("invoice.detail.amount")}
             </CardDescription>
@@ -113,7 +113,7 @@ export function InvoiceDetailSection({
         {/* Status Card */}
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <CheckCircle2 className="size-4 text-muted-foreground" />
               {t("invoice.detail.statusLabel")}
             </CardDescription>
@@ -126,7 +126,7 @@ export function InvoiceDetailSection({
         {/* Issued Date Card */}
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <Calendar className="size-4 text-muted-foreground" />
               {t("invoice.detail.issuedDate")}
             </CardDescription>
@@ -143,7 +143,7 @@ export function InvoiceDetailSection({
         {/* Due Date Card */}
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <Calendar className="size-4 text-muted-foreground" />
               {t("invoice.detail.dueDate")}
             </CardDescription>
@@ -160,7 +160,7 @@ export function InvoiceDetailSection({
         {/* Description Card */}
         <Card className="md:col-span-2">
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <FileText className="size-4 text-muted-foreground" />
               {t("invoice.detail.description")}
             </CardDescription>
@@ -173,7 +173,7 @@ export function InvoiceDetailSection({
         {/* Payment Method Card */}
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <CreditCard className="size-4 text-muted-foreground" />
               {t("invoice.detail.paymentMethod")}
             </CardDescription>
@@ -184,7 +184,7 @@ export function InvoiceDetailSection({
         {/* Payment Link Card */}
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+            <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
               <ExternalLink className="size-4 text-muted-foreground" />
               {t("invoice.detail.paymentLink")}
             </CardDescription>
@@ -210,7 +210,7 @@ export function InvoiceDetailSection({
         {invoice.invoiceNote ? (
           <Card className="md:col-span-2">
             <CardHeader className="pb-2">
-              <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+              <CardDescription className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
                 <FileText className="size-4 text-muted-foreground" />
                 {t("invoice.detail.invoiceNote")}
               </CardDescription>

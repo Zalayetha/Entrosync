@@ -19,13 +19,10 @@ export function InvoiceListSection({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-8">
-      {/* Header Area */}
+    <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            {t("invoice.title")}
-          </h1>
+          <h1 className="text-3xl font-semibold text-foreground">{t("invoice.title")}</h1>
           <p className="text-sm text-muted-foreground">{t("invoice.subtitle")}</p>
         </div>
         <Button onClick={onCreateNew} className="gap-2 self-start sm:self-auto">
@@ -34,10 +31,8 @@ export function InvoiceListSection({
         </Button>
       </div>
 
-      {/* Summary Metrics */}
       <InvoiceSummaryCards invoices={invoices} />
 
-      {/* Invoice Table */}
       <div className="space-y-3">
         <InvoiceTable invoices={invoices} onSelectInvoice={onSelectInvoice} />
       </div>
