@@ -1,5 +1,8 @@
 <p align="center">
-  <h1 align="center">Entrosync</h1>
+    <picture>
+        <source srcset="./assets/logo.svg" width="140" />
+        <img alt="Entrosync logo" src="./assets/logo.svg" width="140" />
+    </picture>
 </p>
 
 <p align="center">
@@ -10,6 +13,8 @@
   <a href="https://tanstack.com/router"><img src="https://img.shields.io/badge/Router-TanStack%20Router-FF4154.svg" alt="TanStack Router"></a>
 </p>
 
+<h1 align="center">Entrosync</h1>
+
 <p align="center">
   <a href="#features"><b>Features</b></a> ·
   <a href="#workspace-structure"><b>Structure</b></a> ·
@@ -18,8 +23,10 @@
   <a href="#deployment"><b>Deployment</b></a>
 </p>
 
-> **Your projects and clients, perfectly in sync.**  
-> Entrosync is an open-source client portal and project collaboration platform designed for modern teams, agencies, and builders.
+<p align="center">
+  <strong>Your projects and clients, perfectly in sync.</strong><br>
+  Entrosync is an open-source client portal and project collaboration platform designed for modern teams, agencies, and builders.
+</p>
 
 ---
 
