@@ -31,6 +31,7 @@ interface ProjectDetailSectionProps {
   onMoveIssue: (issueId: string, milestoneId: string) => void;
   onComment: (issueId: string, parentId: string | null, content: string) => void;
   onToggleInvoiceStatus: (invoiceId: string) => void;
+  onUpdateDescription: (description: string) => void;
   onAddResource: (input: AddResourceFormInput) => void;
   onInvite: (input: InviteClientFormInput) => ProjectInviteItem;
 }
@@ -45,6 +46,7 @@ export function ProjectDetailSection({
   onMoveIssue,
   onComment,
   onToggleInvoiceStatus,
+  onUpdateDescription,
   onAddResource,
   onInvite,
 }: ProjectDetailSectionProps) {
@@ -78,7 +80,7 @@ export function ProjectDetailSection({
   function renderProjectTab() {
     switch (currentTab) {
       case "overview":
-        return <ProjectOverviewTab project={project} />;
+        return <ProjectOverviewTab project={project} onUpdateDescription={onUpdateDescription} />;
       case "roadmap":
         return (
           <ProjectRoadmapTab

@@ -107,10 +107,17 @@ export function ProjectHeader({
         </div>
       </div>
 
-      <Tabs value={currentTab} onValueChange={(value) => onTabChange(value as ProjectTabKey)}>
-        <TabsList variant="line" className="w-full justify-start border-b">
+      <Tabs
+        value={currentTab}
+        onValueChange={(value) => onTabChange(value as ProjectTabKey)}
+        className="w-full"
+      >
+        <TabsList
+          variant="line"
+          className="w-full justify-start border-b border-border/40 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {projectTabs.map((tab) => (
-            <TabsTrigger key={tab} value={tab}>
+            <TabsTrigger key={tab} value={tab} className="shrink-0">
               {t(`project.tabs.${tab}`)}
             </TabsTrigger>
           ))}

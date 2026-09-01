@@ -156,6 +156,16 @@ function ProjectRouteComponent() {
     );
   };
 
+  const handleUpdateDescription = (description: string) => {
+    updateSelectedProject((project) =>
+      appendLog(
+        { ...project, description: description || null, updatedAt: new Date().toISOString() },
+        t("project.logs.descriptionUpdated"),
+        t("project.overview.briefTitle"),
+      ),
+    );
+  };
+
   const handleCreateMilestone = (input: CreateMilestoneFormInput) => {
     updateSelectedProject((project) => {
       const timestamp = new Date().toISOString();
@@ -388,6 +398,7 @@ function ProjectRouteComponent() {
             onUpdateIssueStatus={handleUpdateIssueStatus}
             onMoveIssue={handleMoveIssue}
             onComment={handleComment}
+            onUpdateDescription={handleUpdateDescription}
             onToggleInvoiceStatus={handleToggleInvoiceStatus}
             onAddResource={handleAddResource}
             onInvite={handleInvite}
