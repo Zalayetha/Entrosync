@@ -1,9 +1,21 @@
-import { apiConfig } from "./config";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { apiConfig } from "./config";
+import { aiRouter } from "./modules/ai/router";
 import { auth } from "./modules/auth/auth";
 import { type AuthVariables, loadAuthSession } from "./modules/auth/middleware";
+import { commentsRouter } from "./modules/comments/router";
+import { dashboardRouter } from "./modules/dashboard/router";
+import { feedbacksRouter } from "./modules/feedbacks/router";
+import { guestRouter } from "./modules/guest/router";
+import { invitesRouter } from "./modules/invites/router";
+import { invoicesRouter } from "./modules/invoices/router";
+import { issuesRouter } from "./modules/issues/router";
+import { milestonesRouter } from "./modules/milestones/router";
 import { profileRouter } from "./modules/profile/router";
+import { projectLogsRouter } from "./modules/project-logs/router";
+import { projectsRouter } from "./modules/projects/router";
+import { resourcesRouter } from "./modules/resources/router";
 import { usersRouter } from "./modules/users/router";
 
 export const app = new Hono<{ Variables: AuthVariables }>()
@@ -34,6 +46,18 @@ export const app = new Hono<{ Variables: AuthVariables }>()
     return auth.handler(c.req.raw);
   })
   .route("/profile", profileRouter)
-  .route("/users", usersRouter);
+  .route("/users", usersRouter)
+  .route("/projects", projectsRouter)
+  .route("/milestones", milestonesRouter)
+  .route("/issues", issuesRouter)
+  .route("/comments", commentsRouter)
+  .route("/invoices", invoicesRouter)
+  .route("/feedbacks", feedbacksRouter)
+  .route("/resources", resourcesRouter)
+  .route("/project-logs", projectLogsRouter)
+  .route("/invites", invitesRouter)
+  .route("/guest", guestRouter)
+  .route("/dashboard", dashboardRouter)
+  .route("/ai", aiRouter);
 
 export type AppType = typeof app;

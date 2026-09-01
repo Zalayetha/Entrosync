@@ -17,6 +17,16 @@ export async function loadAuthSession(c: Context<{ Variables: AuthVariables }>, 
   await next();
 }
 
+export function requireAuth(c: Context<{ Variables: AuthVariables }>) {
+  const user = c.get("user");
+
+  if (!user) {
+    return null;
+  }
+
+  return user;
+}
+
 export function requireAdmin(c: Context<{ Variables: AuthVariables }>) {
   const user = c.get("user");
 

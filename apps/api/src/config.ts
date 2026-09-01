@@ -1,4 +1,5 @@
 import type { TelemetryConfig, TelemetryExporter } from "@repo/logger/telemetry";
+import type { StorageConfig } from "@repo/storage";
 import { z } from "zod";
 
 export type RuntimeEnv = "development" | "test" | "production";
@@ -54,6 +55,14 @@ const apiEnvSchema = z
     TELEMETRY_EXPORTER: telemetryExporterSchema,
     TELEMETRY_EXPORTER_OTLP_ENDPOINT: optionalStringSchema,
     TELEMETRY_SERVICE_NAMESPACE: optionalStringSchema,
+    S3_BUCKET: optionalStringSchema.default("entrosync"),
+    S3_REGION: optionalStringSchema.default("auto"),
+    S3_ACCESS_KEY_ID: optionalStringSchema,
+    S3_SECRET_ACCESS_KEY: optionalStringSchema,
+    S3_ENDPOINT: optionalStringSchema,
+    S3_FORCE_PATH_STYLE: booleanSchema.default(true),
+    S3_PUBLIC_BASE_URL: optionalStringSchema,
+    OPENAI_API_KEY: optionalStringSchema,
   })
   .superRefine((env, context) => {
     const betterAuthSecret = env.BETTER_AUTH_SECRET ?? env.AUTH_SECRET ?? defaultBetterAuthSecret;
@@ -103,6 +112,20 @@ export const betterAuthConfig = {
 
 export const databaseConfig = {
   url: env.DATABASE_URL,
+} as const;
+
+export const storageConfig: StorageConfig = {
+  accessKeyId: env.S3_ACCESS_KEY_ID ?? "mock-key",
+  bucket: env.S3_BUCKET,
+  endpoint: env.S3_ENDPOINT,
+  forcePathStyle: env.S3_FORCE_PATH_STYLE,
+  publicBaseUrl: env.S3_PUBLIC_BASE_URL,
+  region: env.S3_REGION,
+  secretAccessKey: env.S3_SECRET_ACCESS_KEY ?? "mock-secret",
+};
+
+export const aiConfig = {
+  apiKey: env.OPENAI_API_KEY,
 } as const;
 
 export const loggerConfig = {
