@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@repo/ui/components/card";
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@repo/ui/components/empty";
 import { useTranslation } from "@repo/ui/i18n";
 import { History } from "lucide-react";
 import { ActivityRow } from "../components/activity-row";
@@ -25,9 +26,14 @@ export function ActivityFeedSection({ activities }: ActivityFeedSectionProps) {
               ))}
             </div>
           ) : (
-            <p className="text-sm font-medium text-muted-foreground">
-              {t("dashboard.activityFeed.empty")}
-            </p>
+            <Empty>
+              <EmptyMedia variant="icon">
+                <History className="size-5" />
+              </EmptyMedia>
+              <EmptyHeader>
+                <EmptyTitle>{t("dashboard.activityFeed.empty")}</EmptyTitle>
+              </EmptyHeader>
+            </Empty>
           )}
         </CardContent>
       </Card>

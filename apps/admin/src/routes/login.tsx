@@ -1,4 +1,5 @@
 import { useTranslation } from "@repo/ui/i18n";
+import { Spinner } from "@repo/ui/components/spinner";
 import { Button } from "@repo/ui/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/card";
 import { Input } from "@repo/ui/components/input";
@@ -40,7 +41,7 @@ function LoginPage() {
         </Link>
         <HeaderControls />
       </header>
-      <main className="flex flex-1 items-center justify-center px-6 py-12">
+      <main className="flex flex-1 items-center justify-center px-6 py-12 animate-in fade-in slide-in-from-bottom-2 duration-200">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>{t("auth.login.title")}</CardTitle>
@@ -53,6 +54,8 @@ function LoginPage() {
                   id="email"
                   type="email"
                   autoComplete="email"
+                  autoFocus
+                  required
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
@@ -63,12 +66,24 @@ function LoginPage() {
                   id="password"
                   type="password"
                   autoComplete="current-password"
+                  required
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
-              <Button type="submit" disabled={loginMutation.isPending}>
-                {loginMutation.isPending ? t("auth.login.pending") : t("auth.login.submit")}
+              <Button
+                type="submit"
+                disabled={loginMutation.isPending}
+                className="transition-all active:scale-[0.98]"
+              >
+                {loginMutation.isPending ? (
+                  <>
+                    <Spinner className="size-4" />
+                    {t("auth.login.pending")}
+                  </>
+                ) : (
+                  t("auth.login.submit")
+                )}
               </Button>
             </form>
           </CardContent>

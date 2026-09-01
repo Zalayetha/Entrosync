@@ -29,6 +29,15 @@ const resources = {
       sidebar: {
         workspace: "Workspace",
       },
+      settings: {
+        title: "Settings",
+        description: "Customize your preferences.",
+      },
+      error: {
+        title: "Something went wrong",
+        description: "An unexpected error occurred. Please try reloading the page.",
+        reload: "Reload page",
+      },
       auth: {
         login: {
           title: "Welcome back",
@@ -62,14 +71,23 @@ const resources = {
           loginLink: "Already have an account?",
           fallbackError: "Registration failed.",
           passwordMismatch: "Passwords do not match.",
+          passwordHint: "Must be at least 8 characters.",
         },
       },
       dashboard: {
         title: "Dashboard",
+        greeting: "Welcome back, {{name}}",
+        subtitle: "Here's what's happening across your projects.",
         viewAll: "View All",
         logout: "Logout",
         logoutPending: "Logging out...",
         logoutFallbackError: "Failed to log out.",
+        logoutConfirm: {
+          title: "Log out?",
+          description: "You will need to sign in again to access your workspace.",
+          cancel: "Cancel",
+          confirm: "Log out",
+        },
         metrics: {
           revenue: {
             label: "Total Revenue (YTD)",
@@ -404,6 +422,15 @@ const resources = {
       sidebar: {
         workspace: "Workspace",
       },
+      settings: {
+        title: "Pengaturan",
+        description: "Sesuaikan preferensi Anda.",
+      },
+      error: {
+        title: "Terjadi kesalahan",
+        description: "Terjadi kesalahan tidak terduga. Silakan muat ulang halaman.",
+        reload: "Muat ulang halaman",
+      },
       auth: {
         login: {
           title: "Selamat Datang Kembali",
@@ -437,14 +464,23 @@ const resources = {
           loginLink: "Sudah punya akun?",
           fallbackError: "Pendaftaran gagal.",
           passwordMismatch: "Kata sandi tidak cocok.",
+          passwordHint: "Minimal 8 karakter.",
         },
       },
       dashboard: {
         title: "Dasbor",
+        greeting: "Selamat datang, {{name}}",
+        subtitle: "Berikut ringkasan aktivitas proyek Anda.",
         viewAll: "Lihat Semua",
         logout: "Keluar",
         logoutPending: "Sedang keluar...",
         logoutFallbackError: "Gagal keluar.",
+        logoutConfirm: {
+          title: "Keluar?",
+          description: "Anda harus masuk kembali untuk mengakses workspace.",
+          cancel: "Batal",
+          confirm: "Keluar",
+        },
         metrics: {
           revenue: {
             label: "Total Revenue (YTD)",

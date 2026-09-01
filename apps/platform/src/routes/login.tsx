@@ -1,4 +1,5 @@
 import { useTranslation } from "@repo/ui/i18n";
+import { Spinner } from "@repo/ui/components/spinner";
 import { Button } from "@repo/ui/components/button";
 import {
   Card,
@@ -51,7 +52,7 @@ function LoginPage() {
         <HeaderControls />
       </header>
 
-      <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 py-10 sm:px-6 lg:grid-cols-[1fr_28rem] lg:px-8">
+      <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 py-10 sm:px-6 lg:grid-cols-[1fr_28rem] lg:px-8 animate-in fade-in slide-in-from-bottom-2 duration-200">
         <section className="max-w-xl">
           <h1 className="text-4xl font-semibold leading-tight text-foreground text-balance">
             {t("auth.login.heroTitle")}
@@ -97,6 +98,8 @@ function LoginPage() {
                     id="email"
                     type="email"
                     autoComplete="email"
+                    autoFocus
+                    required
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                   />
@@ -107,12 +110,24 @@ function LoginPage() {
                     id="password"
                     type="password"
                     autoComplete="current-password"
+                    required
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                   />
                 </div>
-                <Button type="submit" disabled={loginMutation.isPending}>
-                  {loginMutation.isPending ? t("auth.login.pending") : t("auth.login.submit")}
+                <Button
+                  type="submit"
+                  disabled={loginMutation.isPending}
+                  className="transition-all active:scale-[0.98]"
+                >
+                  {loginMutation.isPending ? (
+                    <>
+                      <Spinner className="size-4" />
+                      {t("auth.login.pending")}
+                    </>
+                  ) : (
+                    t("auth.login.submit")
+                  )}
                 </Button>
                 <Button asChild type="button" variant="link">
                   <Link to="/register">{t("auth.login.createAccount")}</Link>

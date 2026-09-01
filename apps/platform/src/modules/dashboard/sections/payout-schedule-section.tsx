@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@repo/ui/components/card";
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@repo/ui/components/empty";
 import { useTranslation } from "@repo/ui/i18n";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, Wallet } from "lucide-react";
 import { PayoutRow } from "../components/payout-row";
 import { SectionHeader } from "../components/section-header";
 import type { DashboardPayout } from "../types";
@@ -30,9 +31,14 @@ export function PayoutScheduleSection({ payouts }: PayoutScheduleSectionProps) {
               ))}
             </div>
           ) : (
-            <p className="text-sm font-medium text-muted-foreground">
-              {t("dashboard.payoutSchedule.empty")}
-            </p>
+            <Empty>
+              <EmptyMedia variant="icon">
+                <Wallet className="size-5" />
+              </EmptyMedia>
+              <EmptyHeader>
+                <EmptyTitle>{t("dashboard.payoutSchedule.empty")}</EmptyTitle>
+              </EmptyHeader>
+            </Empty>
           )}
         </CardContent>
       </Card>

@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@repo/ui/components/card";
 import {
-  ArrowLeft,
   Calendar,
   CheckCircle2,
   CreditCard,
@@ -17,6 +16,15 @@ import {
   FileText,
   RotateCcw,
 } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@repo/ui/components/breadcrumb";
+import { Link } from "@tanstack/react-router";
 import { InvoiceDownloadButton } from "../components/invoice-download-button";
 import { InvoiceStatusBadge } from "../components/invoice-status-badge";
 import type { Invoice } from "../types";
@@ -39,18 +47,27 @@ export function InvoiceDetailSection({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Back Button */}
-      <div>
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={onBack}
-          className="gap-2 px-0 text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" />
-          <span>{t("invoice.backToList")}</span>
-        </Button>
-      </div>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">{t("nav.dashboard")}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <button type="button" onClick={onBack} className="hover:text-foreground">
+                {t("nav.invoice")}
+              </button>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{invoice.id}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       {/* Master Header Card */}
       <Card>

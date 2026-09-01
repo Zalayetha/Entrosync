@@ -1,4 +1,11 @@
 import { Card, CardContent } from "@repo/ui/components/card";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@repo/ui/components/empty";
 import { Input } from "@repo/ui/components/input";
 import {
   Select,
@@ -8,7 +15,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/select";
 import { useTranslation } from "@repo/ui/i18n";
-import { Search } from "lucide-react";
+import { FolderOpen, Search } from "lucide-react";
 import { CreateProjectDialog } from "../components/create-project-dialog";
 import { ProjectCard } from "../components/project-card";
 import type { CreateProjectFormInput, ProjectDetail, ProjectStatusFilter } from "../types";
@@ -89,12 +96,15 @@ export function ProjectListSection({
           ))}
         </div>
       ) : (
-        <Card className="p-0">
-          <CardContent className="flex flex-col items-center justify-center gap-2 py-14 text-center">
-            <p className="text-lg font-semibold text-foreground">{t("project.list.empty")}</p>
-            <p className="text-sm text-muted-foreground">{t("project.list.emptyHelper")}</p>
-          </CardContent>
-        </Card>
+        <Empty>
+          <EmptyMedia variant="icon">
+            <FolderOpen className="size-5" />
+          </EmptyMedia>
+          <EmptyHeader>
+            <EmptyTitle>{t("project.list.empty")}</EmptyTitle>
+            <EmptyDescription>{t("project.list.emptyHelper")}</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
       )}
     </div>
   );

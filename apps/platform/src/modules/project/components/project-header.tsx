@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount } from "@repo/ui/components/avatar";
-import { Button } from "@repo/ui/components/button";
 import { Card, CardContent } from "@repo/ui/components/card";
 import {
   Select,
@@ -10,7 +9,16 @@ import {
 } from "@repo/ui/components/select";
 import { TabsList, TabsTrigger } from "@repo/ui/components/tabs";
 import { useTranslation } from "@repo/ui/i18n";
-import { ArrowLeft, CheckCircle2, CreditCard, Globe2, TrendingUp } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@repo/ui/components/breadcrumb";
+import { CheckCircle2, CreditCard, Globe2, TrendingUp } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import type { ComponentType } from "react";
 import type {
   InviteClientFormInput,
@@ -60,10 +68,27 @@ export function ProjectHeader({ project, onBack, onStatusChange, onInvite }: Pro
     <div className="space-y-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="space-y-4">
-          <Button type="button" variant="ghost" className="w-fit px-0" onClick={onBack}>
-            <ArrowLeft className="size-4" />
-            {t("project.actions.backToProjects")}
-          </Button>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">{t("nav.dashboard")}</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <button type="button" onClick={onBack} className="hover:text-foreground">
+                    {t("nav.projects")}
+                  </button>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{project.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-3">
               <h1 className="text-3xl font-semibold text-foreground">{project.title}</h1>

@@ -1,4 +1,5 @@
 import { useTranslation } from "@repo/ui/i18n";
+import { Spinner } from "@repo/ui/components/spinner";
 import { Button } from "@repo/ui/components/button";
 import {
   Card,
@@ -58,7 +59,7 @@ function RegisterPage() {
         <HeaderControls />
       </header>
 
-      <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 py-10 sm:px-6 lg:grid-cols-[1fr_28rem] lg:px-8">
+      <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 py-10 sm:px-6 lg:grid-cols-[1fr_28rem] lg:px-8 animate-in fade-in slide-in-from-bottom-2 duration-200">
         <section className="max-w-xl">
           <h1 className="text-4xl font-semibold leading-tight text-foreground text-balance">
             {t("auth.register.heroTitle")}
@@ -81,6 +82,8 @@ function RegisterPage() {
                   <Input
                     id="name"
                     autoComplete="name"
+                    autoFocus
+                    required
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                   />
@@ -91,6 +94,7 @@ function RegisterPage() {
                     id="email"
                     type="email"
                     autoComplete="email"
+                    required
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                   />
@@ -101,9 +105,12 @@ function RegisterPage() {
                     id="password"
                     type="password"
                     autoComplete="new-password"
+                    required
+                    minLength={8}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                   />
+                  <p className="text-xs text-muted-foreground">{t("auth.register.passwordHint")}</p>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="confirm-password">{t("auth.register.confirmPassword")}</Label>
@@ -111,19 +118,29 @@ function RegisterPage() {
                     id="confirm-password"
                     type="password"
                     autoComplete="confirm-password"
+                    required
                     value={confirmPassword}
                     onChange={(event) => setConfirmPassword(event.target.value)}
                   />
                   {passwordsDoNotMatch ? (
-                    <p className="text-xs text-destructive">
+                    <p className="text-xs text-destructive" role="alert" aria-live="polite">
                       {t("auth.register.passwordMismatch")}
                     </p>
                   ) : null}
                 </div>
-                <Button type="submit" disabled={registerMutation.isPending || passwordsDoNotMatch}>
-                  {registerMutation.isPending
-                    ? t("auth.register.pending")
-                    : t("auth.register.submit")}
+                <Button
+                  type="submit"
+                  disabled={registerMutation.isPending || passwordsDoNotMatch}
+                  className="transition-all active:scale-[0.98]"
+                >
+                  {registerMutation.isPending ? (
+                    <>
+                      <Spinner className="size-4" />
+                      {t("auth.register.pending")}
+                    </>
+                  ) : (
+                    t("auth.register.submit")
+                  )}
                 </Button>
                 <Button asChild type="button" variant="link">
                   <Link to="/login">{t("auth.register.loginLink")}</Link>

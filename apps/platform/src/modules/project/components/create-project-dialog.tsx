@@ -48,7 +48,7 @@ export function CreateProjectDialog({ onCreate }: CreateProjectDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="self-start sm:self-auto">
+        <Button className="self-start transition-all active:scale-[0.98] sm:self-auto">
           <PlusCircle className="size-4" />
           {t("project.actions.newProject")}
         </Button>

@@ -9,6 +9,13 @@ export class CommentNotFoundError extends Error {
   }
 }
 
+export class CommentForbiddenError extends Error {
+  constructor() {
+    super("Comment forbidden");
+    this.name = "CommentForbiddenError";
+  }
+}
+
 export async function listIssueComments(issueId: string): Promise<CommentItem[]> {
   const comments = await prisma.comment.findMany({
     where: { issueId },
@@ -104,8 +111,12 @@ export async function updateComment(
     where: { id },
   });
 
-  if (!existing || existing.userId !== userId) {
+  if (!existing) {
     throw new CommentNotFoundError();
+  }
+
+  if (existing.userId !== userId) {
+    throw new CommentForbiddenError();
   }
 
   const comment = await prisma.comment.update({
@@ -147,8 +158,12 @@ export async function deleteComment(
     where: { id },
   });
 
-  if (!existing || existing.userId !== userId) {
+  if (!existing) {
     throw new CommentNotFoundError();
+  }
+
+  if (existing.userId !== userId) {
+    throw new CommentForbiddenError();
   }
 
   await prisma.comment.delete({

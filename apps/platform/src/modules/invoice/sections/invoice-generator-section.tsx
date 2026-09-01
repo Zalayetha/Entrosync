@@ -19,7 +19,15 @@ import {
   SelectValue,
 } from "@repo/ui/components/select";
 import { Textarea } from "@repo/ui/components/textarea";
-import { ArrowLeft } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@repo/ui/components/breadcrumb";
+import { Link } from "@tanstack/react-router";
 import { InvoiceLivePreview } from "../components/invoice-live-preview";
 import type { CreateInvoiceFormInput, Currency, Invoice, InvoiceProjectSummary } from "../types";
 import { addDays } from "../utils";
@@ -38,7 +46,7 @@ export function InvoiceGeneratorSection({
   const { t } = useTranslation();
   const formId = useId();
 
-  const todayStr = new Date().toISOString().split("T")[0]!;
+  const todayStr = new Date().toISOString().slice(0, 10);
   const defaultDueStr = addDays(todayStr, 14);
 
   const [projectId, setProjectId] = useState<string>(projects[0]?.id || "");
@@ -141,17 +149,27 @@ export function InvoiceGeneratorSection({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-3">
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={onCancel}
-          className="gap-2 px-0 text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" />
-          <span>{t("invoice.backToList")}</span>
-        </Button>
-      </div>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">{t("nav.dashboard")}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <button type="button" onClick={onCancel} className="hover:text-foreground">
+                {t("nav.invoice")}
+              </button>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{t("invoice.generator.title")}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
         <div className="lg:col-span-7">

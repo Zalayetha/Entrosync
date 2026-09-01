@@ -1,6 +1,7 @@
 import { Badge } from "@repo/ui/components/badge";
 import { Card, CardContent } from "@repo/ui/components/card";
 import { Progress } from "@repo/ui/components/progress";
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@repo/ui/components/empty";
 import {
   Table,
   TableBody,
@@ -118,13 +119,14 @@ export function ActiveProjectsSection({ projects }: ActiveProjectsSectionProps) 
           </Card>
         </>
       ) : (
-        <Card className="p-0">
-          <CardContent className="p-5">
-            <p className="text-sm font-medium text-muted-foreground">
-              {t("dashboard.activeProjects.empty")}
-            </p>
-          </CardContent>
-        </Card>
+        <Empty>
+          <EmptyMedia variant="icon">
+            <BarChart3 className="size-5" />
+          </EmptyMedia>
+          <EmptyHeader>
+            <EmptyTitle>{t("dashboard.activeProjects.empty")}</EmptyTitle>
+          </EmptyHeader>
+        </Empty>
       )}
     </section>
   );

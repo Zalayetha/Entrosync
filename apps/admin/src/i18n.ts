@@ -27,6 +27,15 @@ const resources = {
       sidebar: {
         operations: "Operations",
       },
+      settings: {
+        title: "Settings",
+        description: "Customize your preferences.",
+      },
+      error: {
+        title: "Something went wrong",
+        description: "An unexpected error occurred. Please try reloading the page.",
+        reload: "Reload page",
+      },
       auth: {
         login: {
           title: "Admin login",
@@ -46,6 +55,12 @@ const resources = {
         logout: "Logout",
         logoutPending: "Logging out...",
         logoutFallbackError: "Failed to log out.",
+        logoutConfirm: {
+          title: "Log out?",
+          description: "You will need to sign in again to access your workspace.",
+          cancel: "Cancel",
+          confirm: "Log out",
+        },
         identity: {
           description: "Signed in with elevated access.",
           title: "Admin identity",
@@ -123,6 +138,15 @@ const resources = {
       sidebar: {
         operations: "Operasi",
       },
+      settings: {
+        title: "Pengaturan",
+        description: "Sesuaikan preferensi Anda.",
+      },
+      error: {
+        title: "Terjadi kesalahan",
+        description: "Terjadi kesalahan tidak terduga. Silakan muat ulang halaman.",
+        reload: "Muat ulang halaman",
+      },
       auth: {
         login: {
           title: "Masuk Admin",
@@ -142,6 +166,12 @@ const resources = {
         logout: "Keluar",
         logoutPending: "Sedang keluar...",
         logoutFallbackError: "Gagal keluar.",
+        logoutConfirm: {
+          title: "Keluar?",
+          description: "Anda harus masuk kembali untuk mengakses workspace.",
+          cancel: "Batal",
+          confirm: "Keluar",
+        },
         identity: {
           description: "Masuk dengan akses tinggi.",
           title: "Identitas admin",

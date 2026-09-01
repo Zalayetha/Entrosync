@@ -25,7 +25,10 @@ export function InvoiceListSection({
           <h1 className="text-3xl font-semibold text-foreground">{t("invoice.title")}</h1>
           <p className="text-sm text-muted-foreground">{t("invoice.subtitle")}</p>
         </div>
-        <Button onClick={onCreateNew} className="gap-2 self-start sm:self-auto">
+        <Button
+          onClick={onCreateNew}
+          className="gap-2 self-start sm:self-auto transition-all active:scale-[0.98]"
+        >
           <PlusCircle className="size-4" />
           <span>{t("invoice.newInvoice")}</span>
         </Button>

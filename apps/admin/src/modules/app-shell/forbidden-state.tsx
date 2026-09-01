@@ -1,4 +1,5 @@
 import { useTranslation } from "@repo/ui/i18n";
+import { ShieldX } from "lucide-react";
 import { Button } from "@repo/ui/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/card";
 import { toast } from "@repo/ui/components/sonner";
@@ -27,6 +28,7 @@ export function AdminForbiddenState() {
       <main className="flex flex-1 items-center justify-center px-6 py-12">
         <Card className="w-full max-w-md">
           <CardHeader>
+            <ShieldX className="size-10 text-destructive" />
             <CardTitle>{t("dashboard.forbidden.title")}</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4">

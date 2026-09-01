@@ -34,7 +34,7 @@ export function isInvoiceOverdue(invoice: Invoice): boolean {
 export function addDays(dateStr: string, days: number): string {
   const d = dateStr ? new Date(dateStr) : new Date();
   d.setDate(d.getDate() + days);
-  return d.toISOString().split("T")[0]!;
+  return d.toISOString().slice(0, 10);
 }
 
 export function formatInvoiceDate(

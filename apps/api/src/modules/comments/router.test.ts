@@ -107,4 +107,46 @@ describe("comments router", () => {
     const data = (await res.json()) as CommentItem;
     expect(data.content).toBe("Nice work");
   });
+
+  it("returns forbidden when updating another user's comment", async () => {
+    mocks.findUniqueComment.mockResolvedValue({
+      content: "Someone else's comment",
+      createdAt: baseDate,
+      id: "c-other",
+      issueId: "i1",
+      parentId: null,
+      updatedAt: baseDate,
+      userId: "u2",
+    });
+
+    const res = await app.request("/comments/c-other", {
+      body: JSON.stringify({ content: "Updated" }),
+      headers: { "Content-Type": "application/json" },
+      method: "PATCH",
+    });
+
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ error: "forbidden" });
+    expect(mocks.updateComment).not.toHaveBeenCalled();
+  });
+
+  it("returns forbidden when deleting another user's comment", async () => {
+    mocks.findUniqueComment.mockResolvedValue({
+      content: "Someone else's comment",
+      createdAt: baseDate,
+      id: "c-other",
+      issueId: "i1",
+      parentId: null,
+      updatedAt: baseDate,
+      userId: "u2",
+    });
+
+    const res = await app.request("/comments/c-other", {
+      method: "DELETE",
+    });
+
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ error: "forbidden" });
+    expect(mocks.deleteComment).not.toHaveBeenCalled();
+  });
 });

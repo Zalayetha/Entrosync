@@ -1,4 +1,5 @@
 import { useTranslation } from "@repo/ui/i18n";
+import { Skeleton } from "@repo/ui/components/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar";
 import { Button } from "@repo/ui/components/button";
 import {
@@ -52,7 +53,21 @@ function ProfilePage() {
   }, [currentUser]);
 
   if (!currentUser) {
-    return null;
+    return (
+      <AdminAppShell>
+        <section className="grid gap-8">
+          <div className="max-w-2xl space-y-2">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-9 w-48" />
+            <Skeleton className="h-4 w-72" />
+          </div>
+          <div className="grid gap-4 lg:grid-cols-[1fr_22rem]">
+            <Skeleton className="h-80 w-full rounded-lg" />
+            <Skeleton className="h-60 w-full rounded-lg" />
+          </div>
+        </section>
+      </AdminAppShell>
+    );
   }
 
   if (!isAdminRole(currentUser.role)) {

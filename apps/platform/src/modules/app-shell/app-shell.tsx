@@ -1,6 +1,18 @@
 import { useTranslation } from "@repo/ui/i18n";
+import { Spinner } from "@repo/ui/components/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar";
 import { Button } from "@repo/ui/components/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@repo/ui/components/alert-dialog";
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +37,7 @@ import { Folder, LayoutDashboardIcon, LogOutIcon, ReceiptText, UserRoundIcon } f
 import type { ReactNode } from "react";
 import { meQueryOptions, useLogoutMutation } from "../auth/hooks/use-auth";
 import { HeaderControls } from "./header-controls";
+import { PageTransition } from "./page-transition";
 
 export function PlatformAppShell({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
@@ -42,7 +55,11 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
   }
 
   if (!user.data) {
-    return null;
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <Spinner className="size-6" />
+      </div>
+    );
   }
 
   const navItems = [
@@ -116,18 +133,35 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
-          <Button
-            className="w-full justify-start group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0"
-            type="button"
-            variant="ghost"
-            disabled={logoutMutation.isPending}
-            onClick={handleLogout}
-          >
-            <LogOutIcon className="size-4 shrink-0" />
-            <span className="group-data-[collapsible=icon]:hidden">
-              {logoutMutation.isPending ? t("dashboard.logoutPending") : t("dashboard.logout")}
-            </span>
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                className="w-full justify-start group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0"
+                type="button"
+                variant="ghost"
+                disabled={logoutMutation.isPending}
+              >
+                <LogOutIcon className="size-4 shrink-0" />
+                <span className="group-data-[collapsible=icon]:hidden">
+                  {logoutMutation.isPending ? t("dashboard.logoutPending") : t("dashboard.logout")}
+                </span>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("dashboard.logoutConfirm.title")}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {t("dashboard.logoutConfirm.description")}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{t("dashboard.logoutConfirm.cancel")}</AlertDialogCancel>
+                <AlertDialogAction onClick={handleLogout}>
+                  {t("dashboard.logoutConfirm.confirm")}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
@@ -139,9 +173,11 @@ export function PlatformAppShell({ children }: { children: ReactNode }) {
           </div>
           <HeaderControls />
         </header>
-        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-5 py-7 sm:px-6 lg:px-8">
-          {children}
-        </div>
+        <PageTransition>
+          <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-5 py-7 sm:px-6 lg:px-8">
+            {children}
+          </div>
+        </PageTransition>
       </SidebarInset>
     </SidebarProvider>
   );

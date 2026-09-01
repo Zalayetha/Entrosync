@@ -24,11 +24,17 @@ export const mockInvoiceProjects: InvoiceProjectSummary[] = [
   },
 ];
 
+const [ecommerceProject, supportPortalProject, brandIdentityProject] = mockInvoiceProjects;
+
+if (!ecommerceProject || !supportPortalProject || !brandIdentityProject) {
+  throw new Error("Invoice mock projects are incomplete.");
+}
+
 export const mockInvoices: Invoice[] = [
   {
     id: "inv_2026_001",
     projectId: "proj_01",
-    project: mockInvoiceProjects[0]!,
+    project: ecommerceProject,
     amount: 15000000,
     currency: "IDR",
     status: "PAID",
@@ -44,7 +50,7 @@ export const mockInvoices: Invoice[] = [
   {
     id: "inv_2026_002",
     projectId: "proj_02",
-    project: mockInvoiceProjects[1]!,
+    project: supportPortalProject,
     amount: 5750000,
     currency: "IDR",
     status: "PENDING",
@@ -60,7 +66,7 @@ export const mockInvoices: Invoice[] = [
   {
     id: "inv_2026_003",
     projectId: "proj_03",
-    project: mockInvoiceProjects[2]!,
+    project: brandIdentityProject,
     amount: 1200,
     currency: "USD",
     status: "PENDING",
