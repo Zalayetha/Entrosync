@@ -108,13 +108,9 @@ export function ProjectHeader({
       </div>
 
       <Tabs value={currentTab} onValueChange={(value) => onTabChange(value as ProjectTabKey)}>
-        <TabsList className="h-auto w-full justify-start overflow-x-auto rounded-none border-b bg-transparent p-0">
+        <TabsList variant="line" className="w-full justify-start border-b">
           {projectTabs.map((tab) => (
-            <TabsTrigger
-              key={tab}
-              value={tab}
-              className="rounded-none border-b-2 border-transparent bg-transparent px-3 py-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-            >
+            <TabsTrigger key={tab} value={tab}>
               {t(`project.tabs.${tab}`)}
             </TabsTrigger>
           ))}
