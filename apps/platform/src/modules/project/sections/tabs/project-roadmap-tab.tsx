@@ -5,29 +5,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@repo/ui/components/accordion";
-import { Button } from "@repo/ui/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/card";
 import { Tabs, TabsList, TabsTrigger } from "@repo/ui/components/tabs";
 import { useTranslation } from "@repo/ui/i18n";
-import { CreateIssueDialog } from "../../components/create-issue-dialog";
-import { CreateMilestoneDialog } from "../../components/create-milestone-dialog";
 import { IssueCard } from "../../components/issue-card";
 import { IssueDetailSheet } from "../../components/issue-detail-sheet";
 import { MilestoneCard } from "../../components/milestone-card";
-import type {
-  CreateIssueFormInput,
-  CreateMilestoneFormInput,
-  IssueItem,
-  IssueStatus,
-  ProjectDetail,
-  RoadmapViewMode,
-} from "../../types";
+import type { IssueItem, IssueStatus, ProjectDetail, RoadmapViewMode } from "../../types";
 import { flattenIssues } from "../../utils";
 
 interface ProjectRoadmapTabProps {
   project: ProjectDetail;
-  onCreateMilestone: (input: CreateMilestoneFormInput) => void;
-  onCreateIssue: (input: CreateIssueFormInput) => void;
   onUpdateIssueStatus: (issueId: string, status: IssueStatus) => void;
   onMoveIssue: (issueId: string, milestoneId: string) => void;
   onComment: (issueId: string, parentId: string | null, content: string) => void;
@@ -44,8 +32,6 @@ const issueStatuses: IssueStatus[] = [
 
 export function ProjectRoadmapTab({
   project,
-  onCreateMilestone,
-  onCreateIssue,
   onUpdateIssueStatus,
   onMoveIssue,
   onComment,
@@ -60,7 +46,11 @@ export function ProjectRoadmapTab({
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-lg font-semibold text-foreground">{t("project.roadmap.title")}</h2>
+          <p className="text-sm text-muted-foreground">{t("project.roadmap.description")}</p>
+        </div>
         <Tabs value={mode} onValueChange={(value) => setMode(value as RoadmapViewMode)}>
           <TabsList>
             <TabsTrigger value="milestones">{t("project.roadmap.modes.milestones")}</TabsTrigger>
@@ -68,10 +58,6 @@ export function ProjectRoadmapTab({
             <TabsTrigger value="list">{t("project.roadmap.modes.list")}</TabsTrigger>
           </TabsList>
         </Tabs>
-        <div className="flex flex-wrap gap-2">
-          <CreateMilestoneDialog onCreate={onCreateMilestone} />
-          <CreateIssueDialog milestones={project.milestones} onCreate={onCreateIssue} />
-        </div>
       </div>
 
       {mode === "milestones" ? (
@@ -126,9 +112,13 @@ export function ProjectRoadmapTab({
                   <h3 className="font-semibold text-foreground">{issue.title}</h3>
                   <p className="text-sm text-muted-foreground">{issue.description}</p>
                 </div>
-                <Button type="button" variant="outline" onClick={() => setSelectedIssue(issue)}>
+                <button
+                  type="button"
+                  className="text-left text-sm font-medium text-primary hover:underline"
+                  onClick={() => setSelectedIssue(issue)}
+                >
                   {t("project.actions.open")}
-                </Button>
+                </button>
               </div>
             ))}
           </CardContent>

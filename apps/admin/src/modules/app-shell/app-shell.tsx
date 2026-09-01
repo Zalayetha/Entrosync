@@ -165,7 +165,7 @@ export function AdminAppShell({ children }: { children: ReactNode }) {
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-      <SidebarInset>
+      <SidebarInset className="min-w-0">
         <header className="flex h-14 shrink-0 items-center justify-between border-b bg-background/95 px-4">
           <div className="flex items-center gap-2">
             <SidebarTrigger />

@@ -1,5 +1,6 @@
 export type ProjectStatus = "BACKLOG" | "PLANNED" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
 export type IssueStatus = "BACKLOG" | "TODO" | "IN_PROGRESS" | "IN_REVIEW" | "DONE" | "CANCELLED";
+export type ProjectHealth = "ON_TRACK" | "AT_RISK" | "BEHIND";
 export type InvoiceStatus = "PENDING" | "PAID";
 export type Currency = "IDR" | "USD";
 export type ResourceType = "FILE" | "LINK";
@@ -132,7 +133,7 @@ export interface ProjectDetail {
 }
 
 export type ProjectSubView = "list" | "detail";
-export type ProjectTabKey = "overview" | "roadmap" | "invoices" | "resources" | "feedback" | "logs";
+export type ProjectTabKey = "overview" | "roadmap" | "invoices" | "feedback" | "logs";
 export type RoadmapViewMode = "milestones" | "kanban" | "list";
 export type ProjectStatusFilter = "ALL" | ProjectStatus;
 export type ResourceTypeFilter = "ALL" | ResourceType;

@@ -1,14 +1,3 @@
-import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount } from "@repo/ui/components/avatar";
-import { Card, CardContent } from "@repo/ui/components/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@repo/ui/components/select";
-import { TabsList, TabsTrigger } from "@repo/ui/components/tabs";
-import { useTranslation } from "@repo/ui/i18n";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,119 +6,99 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@repo/ui/components/breadcrumb";
-import { CheckCircle2, CreditCard, Globe2, TrendingUp } from "lucide-react";
+import { Badge } from "@repo/ui/components/badge";
+import { Tabs, TabsList, TabsTrigger } from "@repo/ui/components/tabs";
+import { useTranslation } from "@repo/ui/i18n";
 import { Link } from "@tanstack/react-router";
-import type { ComponentType } from "react";
 import type {
+  CreateIssueFormInput,
+  CreateMilestoneFormInput,
   InviteClientFormInput,
   ProjectDetail,
+  ProjectHealth,
   ProjectInviteItem,
-  ProjectStatus,
   ProjectTabKey,
 } from "../types";
-import {
-  calculateCompletedIssuesCount,
-  calculateProjectProgress,
-  calculateTotalIssuesCount,
-  formatCurrencyAmount,
-} from "../utils";
+import { calculateProjectHealth } from "../utils";
+import { CreateIssueDialog } from "./create-issue-dialog";
+import { CreateMilestoneDialog } from "./create-milestone-dialog";
 import { InviteClientDialog } from "./invite-client-dialog";
 import { ProjectStatusBadge } from "./project-status-badge";
 
 interface ProjectHeaderProps {
   project: ProjectDetail;
+  currentTab: ProjectTabKey;
+  onTabChange: (tab: ProjectTabKey) => void;
   onBack: () => void;
-  onStatusChange: (status: ProjectStatus) => void;
+  onCreateMilestone: (input: CreateMilestoneFormInput) => void;
+  onCreateIssue: (input: CreateIssueFormInput) => void;
   onInvite: (input: InviteClientFormInput) => ProjectInviteItem;
 }
 
-const projectStatuses: ProjectStatus[] = [
-  "BACKLOG",
-  "PLANNED",
-  "IN_PROGRESS",
-  "COMPLETED",
-  "CANCELLED",
-];
+const projectTabs: ProjectTabKey[] = ["overview", "roadmap", "invoices", "feedback", "logs"];
 
-const tabs: ProjectTabKey[] = ["overview", "roadmap", "invoices", "resources", "feedback", "logs"];
+const healthClassName: Record<ProjectHealth, string> = {
+  ON_TRACK: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+  AT_RISK: "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+  BEHIND: "border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300",
+};
 
-export function ProjectHeader({ project, onBack, onStatusChange, onInvite }: ProjectHeaderProps) {
+export function ProjectHeader({
+  project,
+  currentTab,
+  onTabChange,
+  onBack,
+  onCreateMilestone,
+  onCreateIssue,
+  onInvite,
+}: ProjectHeaderProps) {
   const { t } = useTranslation();
-  const progress = calculateProjectProgress(project);
-  const completed = calculateCompletedIssuesCount(project);
-  const total = calculateTotalIssuesCount(project);
-  const paidTotal = project.invoices
-    .filter((invoice) => invoice.status === "PAID")
-    .reduce((sum, invoice) => sum + invoice.amount, 0);
-  const paidCurrency =
-    project.invoices.find((invoice) => invoice.status === "PAID")?.currency || "IDR";
+  const health = calculateProjectHealth(project);
 
   return (
     <div className="space-y-5">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">{t("nav.dashboard")}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <button type="button" onClick={onBack} className="hover:text-foreground">
+                {t("nav.projects")}
+              </button>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{project.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="space-y-4">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/">{t("nav.dashboard")}</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <button type="button" onClick={onBack} className="hover:text-foreground">
-                    {t("nav.projects")}
-                  </button>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{project.title}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-3xl font-semibold text-foreground">{project.title}</h1>
-              <ProjectStatusBadge status={project.status} />
-            </div>
-            <p className="max-w-3xl text-sm leading-6 text-muted-foreground">
-              {project.description}
-            </p>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-              <span>{project.clientName}</span>
-              <AvatarGroup>
-                {project.teams.slice(0, 4).map((member) => (
-                  <Avatar key={member.id} size="sm">
-                    <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
-                  </Avatar>
-                ))}
-                {project.teams.length > 4 ? (
-                  <AvatarGroupCount className="size-6 text-xs">
-                    +{project.teams.length - 4}
-                  </AvatarGroupCount>
-                ) : null}
-              </AvatarGroup>
-            </div>
+        <div className="min-w-0 space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-3xl font-semibold text-foreground">{project.title}</h1>
+            <ProjectStatusBadge status={project.status} />
+            <Badge variant="outline" className={healthClassName[health]}>
+              {t(`project.health.${health}`)}
+            </Badge>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <Badge variant="secondary">{project.clientName}</Badge>
+            {project.description ? (
+              <span className="line-clamp-1">{project.description}</span>
+            ) : null}
           </div>
         </div>
+
         <div className="flex flex-wrap items-center gap-2">
-          <Select
-            value={project.status}
-            onValueChange={(value) => onStatusChange(value as ProjectStatus)}
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {projectStatuses.map((status) => (
-                <SelectItem key={status} value={status}>
-                  {t(`project.status.${status}`)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <CreateMilestoneDialog onCreate={onCreateMilestone} />
+          <CreateIssueDialog milestones={project.milestones} onCreate={onCreateIssue} />
           <InviteClientDialog
             projectSlug={project.slug}
             invites={project.invites}
@@ -138,73 +107,19 @@ export function ProjectHeader({ project, onBack, onStatusChange, onInvite }: Pro
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard
-          icon={TrendingUp}
-          label={t("project.metrics.progress")}
-          value={`${progress}%`}
-          helper={t("project.metrics.overallHelper")}
-        />
-        <KpiCard
-          icon={CheckCircle2}
-          label={t("project.metrics.completedTasks")}
-          value={`${completed}/${total}`}
-          helper={t("project.metrics.completedHelper")}
-        />
-        <KpiCard
-          icon={CreditCard}
-          label={t("project.metrics.totalInvoiced")}
-          value={formatCurrencyAmount(paidTotal, paidCurrency)}
-          helper={t("project.metrics.paidInvoices")}
-        />
-        <KpiCard
-          icon={Globe2}
-          label={t("project.metrics.clientPortal")}
-          value={project.invites.length.toString()}
-          helper={t("project.metrics.portalHelper")}
-        />
-      </div>
-
-      <TabsList className="h-auto w-full justify-start overflow-x-auto rounded-none border-b bg-transparent p-0">
-        {tabs.map((tab) => (
-          <TabsTrigger key={tab} value={tab} className="h-10 flex-none rounded-none">
-            {t(`project.tabs.${tab}`)}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+      <Tabs value={currentTab} onValueChange={(value) => onTabChange(value as ProjectTabKey)}>
+        <TabsList className="h-auto w-full justify-start overflow-x-auto rounded-none border-b bg-transparent p-0">
+          {projectTabs.map((tab) => (
+            <TabsTrigger
+              key={tab}
+              value={tab}
+              className="rounded-none border-b-2 border-transparent bg-transparent px-3 py-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+            >
+              {t(`project.tabs.${tab}`)}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
     </div>
   );
-}
-
-interface KpiCardProps {
-  icon: ComponentType<{ className?: string }>;
-  label: string;
-  value: string;
-  helper: string;
-}
-
-function KpiCard({ icon: Icon, label, value, helper }: KpiCardProps) {
-  return (
-    <Card className="p-0">
-      <CardContent className="flex items-start gap-3 p-4">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted">
-          <Icon className="size-4 text-muted-foreground" />
-        </div>
-        <div className="min-w-0 space-y-1">
-          <p className="text-xs font-semibold uppercase text-muted-foreground">{label}</p>
-          <p className="truncate text-xl font-semibold text-foreground">{value}</p>
-          <p className="text-xs text-muted-foreground">{helper}</p>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
 }

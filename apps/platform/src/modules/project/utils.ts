@@ -1,4 +1,4 @@
-import type { Currency, IssueItem, MilestoneItem, ProjectDetail } from "./types";
+import type { Currency, IssueItem, MilestoneItem, ProjectDetail, ProjectHealth } from "./types";
 
 export function calculateCompletedIssuesCount(project: ProjectDetail): number {
   return project.milestones.reduce(
@@ -45,6 +45,18 @@ export function formatProjectDate(dateStr?: string | null, locale = "en-US"): st
     month: "short",
     year: "numeric",
   }).format(date);
+}
+
+export function calculateProjectHealth(project: ProjectDetail): ProjectHealth {
+  if (project.status === "COMPLETED") return "ON_TRACK";
+
+  const progress = calculateProjectProgress(project);
+  const remainingDays = getRemainingDays(project.targetDate);
+  if (remainingDays === null) return progress >= 50 ? "ON_TRACK" : "AT_RISK";
+  if (remainingDays < 0 && progress < 100) return "BEHIND";
+  if (remainingDays <= 7 && progress < 80) return "AT_RISK";
+  if (remainingDays <= 14 && progress < 50) return "AT_RISK";
+  return "ON_TRACK";
 }
 
 export function getRemainingDays(dateStr?: string | null): number | null {
