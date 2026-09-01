@@ -60,8 +60,8 @@ export function ProjectListSection({
         <CreateProjectDialog onCreate={onCreateProject} />
       </div>
 
-      <Card className="p-0">
-        <CardContent className="grid gap-3 p-4 md:grid-cols-[1fr_220px]">
+      <div className="p-0">
+        <div className="grid gap-3 p-4 md:grid-cols-[1fr_220px] bg-transparent">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -86,8 +86,8 @@ export function ProjectListSection({
               ))}
             </SelectContent>
           </Select>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {projects.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
