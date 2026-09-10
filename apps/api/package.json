@@ -34,7 +34,7 @@
     "@repo/logger": "workspace:*",
     "@repo/storage": "workspace:*",
     "better-auth": "^1.6.26",
-    "hono": "^4.13.1",
+    "hono": "^4.13.5",
     "pg": "^8.23.0",
     "zod": "^4.4.3"
   },
